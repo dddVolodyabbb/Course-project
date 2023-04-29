@@ -58,7 +58,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Commands\Products\" />
+    <Folder Include="Commands\RawMaterials\" />
+    <Folder Include="Commands\Users\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

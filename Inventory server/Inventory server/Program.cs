@@ -1,8 +1,4 @@
 ﻿using NP_08_Server;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Inventory_server
@@ -16,8 +12,6 @@ namespace Inventory_server
         }
         private static IServer CreateServer()
         {
-            
-
             return new Server(
 
                 );
