@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NP_08_Server.Helpers;
+namespace InventoryServer.Helpers;
 
 public static class JsonSerializeHelper
 {

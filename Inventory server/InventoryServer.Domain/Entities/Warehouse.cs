@@ -12,6 +12,7 @@ namespace InventoryServer.Domain.Entities
         /// Название склада
         /// </summary>
         public string Name { get; set; }
-        public ICollection<RawMaterialInOnePackage> RawMaterials { get; set; }
+        public ICollection<RawMaterialInOnePackage> RawMaterialInOnePackage { get; set; }
+        public ICollection<ProductInOnePackage> ProductInOnePackage { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace InventoryServer.Domain.Entities
     public class ProductInOnePackage
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
+        public int ProductTypeId { get; set; }
         /// <summary>
         /// Тип продукта
         /// </summary>
@@ -36,6 +36,12 @@ namespace InventoryServer.Domain.Entities
         /// <summary>
         /// Лабораторный анализ. false если не пройден.
         /// </summary>
+        public int WarehouseId { get; set; }
+        /// <summary>
+        /// Склад, в котором хранится сыръё
+        /// </summary>
+        public Warehouse Warehouse { get; set; }
         public bool LaboratoryAnalysis { get; set; }
+        public string Note { get; set; }
     }
 }

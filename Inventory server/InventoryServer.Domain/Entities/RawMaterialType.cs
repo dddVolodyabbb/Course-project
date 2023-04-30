@@ -12,7 +12,7 @@ namespace InventoryServer.Domain.Entities
         /// Название типа сырья
         /// </summary>
         public string Name { get; set; }
-        public ICollection<RawMaterialInOnePackage> RawMaterials { get; set; }
-        public ICollection<PercentageOfRawMaterials> PercentOfRawMaterials { get; set;}
+        public ICollection<RawMaterialInOnePackage> RawMaterialInOnePackage { get; set; }
+        public ICollection<PercentageOfRawMaterial> PercentOfRawMaterials { get; set;}
     }
 }

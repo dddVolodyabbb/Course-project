@@ -44,9 +44,8 @@
     <Compile Include="Entities\DeliveryCompany.cs" />
     <Compile Include="Entities\HistoryOfProductSold.cs" />
     <Compile Include="Entities\MarriageHistory.cs" />
-    <Compile Include="Entities\PercentageOfRawMaterials.cs" />
-    <Compile Include="Entities\ProductPerPackage.cs" />
-    <Compile Include="Entities\ProductRecipe.cs" />
+    <Compile Include="Entities\PercentageOfRawMaterial.cs" />
+    <Compile Include="Entities\ProductInOnePackage.cs" />
     <Compile Include="Entities\ProductType.cs" />
     <Compile Include="Entities\RawMaterialInOnePackage.cs" />
     <Compile Include="Entities\RawMaterialProducer.cs" />

@@ -1,9 +1,11 @@
-﻿namespace InventoryServer.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace InventoryServer.Domain.Entities
 {
     /// <summary>
     /// Прцент сыръя в продукции
     /// </summary>
-    public class PercentageOfRawMaterials
+    public class PercentageOfRawMaterial
     {
         public int Id { get; set; }
         public int ProductTypeId { get; set; }

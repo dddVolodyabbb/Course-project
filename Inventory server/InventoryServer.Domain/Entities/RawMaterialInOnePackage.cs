@@ -56,5 +56,9 @@ namespace InventoryServer.Domain.Entities
         /// Стоймость доставки сырья
         /// </summary>
         public decimal CostOfDelivery { get; set; }
+        /// <summary>
+        /// Примечание
+        /// </summary>
+        public string Note { get; set; }
     }
 }

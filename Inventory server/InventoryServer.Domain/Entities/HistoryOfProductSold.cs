@@ -8,7 +8,7 @@ namespace InventoryServer.Domain.Entities
     public class HistoryOfProductSold
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
+        public int ProductTypeId { get; set; }
         /// <summary>
         /// Тип продукта
         /// </summary>

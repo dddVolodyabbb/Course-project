@@ -12,6 +12,6 @@ namespace InventoryServer.Domain.Entities
         /// Название компании доставки
         /// </summary>
         public string Name { get; set; }
-        public  ICollection<RawMaterialInOnePackage> RawMaterials { get; set; }
+        public  ICollection<RawMaterialInOnePackage> RawMaterialInOnePackage { get; set; }
     }
 }
