@@ -1,24 +1,19 @@
 ﻿using System;
 
-namespace InventoryServer.Domain.Entities
+namespace InventoryServer.Context.Requests
 {
-    /// <summary>
-    /// Информация о продукте в одной упаковке
-    /// </summary>
-    public class ProductInOnePackage
+    public class ProductInOnePackageRequest
     {
-        public int Id { get; set; }
-        public int ProductTypeId { get; set; }
         /// <summary>
         /// Тип продукта
         /// </summary>
-        public ProductType ProductType { get; set; }
+        public string ProductType { get; set; }
         /// <summary>
-        /// Вес продукции в одной упаковке
+        /// Вес продукции в одной упаковке в граммах
         /// </summary>
         public int Weight { get; set; }
         /// <summary>
-        /// Себестоймость продукции одной упаковки в граммах
+        /// Себестоймость продукции одной упаковки
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
@@ -34,13 +29,9 @@ namespace InventoryServer.Domain.Entities
         /// </summary>
         public DateTime SellBy { get; set; }
         /// <summary>
-        /// Лабораторный анализ. false если не пройден.
-        /// </summary>
-        public int WarehouseId { get; set; }
-        /// <summary>
         /// Склад, в котором хранится сыръё
         /// </summary>
-        public Warehouse Warehouse { get; set; }
+        public string Warehouse { get; set; }
         /// <summary>
         /// Лабораторный анализ. false если не пройден.
         /// </summary>

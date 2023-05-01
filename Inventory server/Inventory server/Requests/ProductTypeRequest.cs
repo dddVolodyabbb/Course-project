@@ -1,0 +1,11 @@
+﻿
+namespace InventoryServer.Context.Requests
+{
+    public class ProductTypeRequest
+    {
+        /// <summary>
+        /// Название продукции
+        /// </summary>
+        public string Name { get; set; }
+    }
+}

@@ -1,11 +1,5 @@
 ﻿using InventoryServer.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryServer.Context.Contexts
 {
@@ -14,8 +8,9 @@ namespace InventoryServer.Context.Contexts
     {
         public ContextInventory() : base("DBConnection") { }
         public DbSet<DeliveryCompany> DeliveryCompanies { get; set; }
-        public DbSet<HistoryOfProductSold> HistoryOfProducts { get; set; }
-        public DbSet<MarriageHistory> MarriageHistories { get; set; }
+        public DbSet<HistoryOfProductSold> HistoryOfProductsSolids { get; set; }
+        public DbSet<HistoryMarriageProduct> HistoryMarriageProducts { get; set; }
+        public DbSet<HistoryMarriageRavMaterial> HistoryMarriageRavMaterials { get; set; }
         public DbSet<PercentageOfRawMaterial> PercentOfRawMaterials { get; set; }
         public DbSet<ProductInOnePackage> ProductInOnePackages { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
@@ -65,31 +60,71 @@ namespace InventoryServer.Context.Contexts
 
             #endregion
 
-            #region MarriageHistory
+            #region HistoryMarriageProduct
 
-            modelBuilder.Entity<MarriageHistory>()
-                .Property(a => a.Name)
-                .HasMaxLength(100)
-                .IsRequired();
+            modelBuilder.Entity<HistoryMarriageProduct>()
+                .HasRequired(de => de.ProductType)
+                .WithMany(d => d.HistoryMarriageProducts)
+                .HasForeignKey(de => de.ProductTypeId)
+                .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<MarriageHistory>()
-                .HasIndex(a => a.Name)
-                .IsClustered(false)
-                .IsUnique(false);
-
-            modelBuilder.Entity<MarriageHistory>()
+            modelBuilder.Entity<HistoryMarriageProduct>()
                 .Property(a => a.CostPrice)
                 .HasColumnType("money")
                 .IsRequired();
 
-            modelBuilder.Entity<MarriageHistory>()
+            modelBuilder.Entity<HistoryMarriageProduct>()
                 .Property(a => a.DateOfAssignment)
                 .HasColumnName("date")
                 .IsRequired();
 
-            modelBuilder.Entity<MarriageHistory>()
+            modelBuilder.Entity<HistoryMarriageProduct>()
                 .Property(a => a.Weight)
                 .IsRequired();
+
+            modelBuilder.Entity<HistoryMarriageProduct>()
+                .Property(a => a.Note)
+                .HasMaxLength(500)
+                .IsRequired();
+
+            modelBuilder.Entity<HistoryMarriageProduct>()
+                .HasIndex(ph => ph.Note)
+                .IsClustered(false)
+                .IsUnique(false);
+
+            #endregion
+
+            #region HistoryMarriageRavMaterial
+
+            modelBuilder.Entity<HistoryMarriageRavMaterial>()
+                .HasRequired(de=>de.RawMaterialType)
+                .WithMany(d=>d.HistoryMarriageRavMaterials)
+                .HasForeignKey(de => de.RawMaterialTypeId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<HistoryMarriageRavMaterial>()
+                .Property(a => a.CostPrice)
+                .HasColumnType("money")
+                .IsRequired();
+
+            modelBuilder.Entity<HistoryMarriageRavMaterial>()
+                .Property(a => a.DateOfAssignment)
+                .HasColumnName("date")
+                .IsRequired();
+
+            modelBuilder.Entity<HistoryMarriageRavMaterial>()
+                .Property(a => a.Weight)
+                .IsRequired();
+
+            modelBuilder.Entity<HistoryMarriageRavMaterial>()
+                .Property(a=>a.Note)
+                .HasMaxLength(500)
+                .IsRequired();
+
+            modelBuilder.Entity<ProductInOnePackage>()
+                .HasIndex(ph => ph.Note)
+                .IsClustered(false)
+                .IsUnique(false);
 
             #endregion
 
@@ -131,11 +166,12 @@ namespace InventoryServer.Context.Contexts
                 .IsRequired();
 
             modelBuilder.Entity<ProductInOnePackage>()
-                .Property(a => a.LaboratoryAnalysis);
+                .Property(a => a.LaboratoryAnalysis)
+                .HasMaxLength(200);
 
             modelBuilder.Entity<ProductInOnePackage>()
                 .Property(a => a.Note)
-                .HasMaxLength(1000)
+                .HasMaxLength(500)
                 .IsRequired();
 
             modelBuilder.Entity<ProductInOnePackage>()
@@ -198,7 +234,7 @@ namespace InventoryServer.Context.Contexts
 
             modelBuilder.Entity<RawMaterialInOnePackage>()
                 .Property(a => a.Note)
-                .HasMaxLength(1000)
+                .HasMaxLength(500)
                 .IsRequired();
 
             modelBuilder.Entity<RawMaterialInOnePackage>()
@@ -221,7 +257,8 @@ namespace InventoryServer.Context.Contexts
                 .IsRequired();
 
             modelBuilder.Entity<RawMaterialInOnePackage>()
-                .Property(a => a.LaboratoryAnalysis);
+                .Property(a => a.LaboratoryAnalysis)
+                .HasMaxLength(200);
 
             modelBuilder.Entity<RawMaterialInOnePackage>()
                 .HasRequired(de => de.DeliveryCompany)

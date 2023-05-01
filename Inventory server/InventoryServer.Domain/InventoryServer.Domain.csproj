@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,8 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\DeliveryCompany.cs" />
+    <Compile Include="Entities\HistoryMarriageProduct.cs" />
     <Compile Include="Entities\HistoryOfProductSold.cs" />
-    <Compile Include="Entities\MarriageHistory.cs" />
+    <Compile Include="Entities\HistoryMarriageRavMaterial.cs" />
     <Compile Include="Entities\PercentageOfRawMaterial.cs" />
     <Compile Include="Entities\ProductInOnePackage.cs" />
     <Compile Include="Entities\ProductType.cs" />
