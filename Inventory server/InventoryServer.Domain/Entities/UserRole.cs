@@ -5,6 +5,7 @@
         Admin,
         WarehouseUser,
         LaboratoryUser,
-        ProductionUser
+        ProductionUser,
+        DefaultUser
     }
 }

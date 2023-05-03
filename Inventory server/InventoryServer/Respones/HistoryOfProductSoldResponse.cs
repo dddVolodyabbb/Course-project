@@ -1,18 +1,14 @@
 ﻿using System;
 
-namespace InventoryServer.Domain.Entities
+namespace InventoryServer.Respones
 {
-    /// <summary>
-    /// История продажи продукции
-    /// </summary>
-    public class HistoryOfProductSold
+    public class HistoryOfProductSoldResponse
     {
         public int Id { get; set; }
-        public int ProductTypeId { get; set; }
         /// <summary>
         /// Тип продукта
         /// </summary>
-        public ProductType ProductType { get; set; }
+        public string ProductType { get; set; }
         public int Weight { get; set; }
         /// <summary>
         /// Стоймость продукции одной упаковки

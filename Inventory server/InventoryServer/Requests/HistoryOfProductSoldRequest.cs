@@ -1,18 +1,13 @@
 ﻿using System;
 
-namespace InventoryServer.Domain.Entities
+namespace InventoryServer.Requests
 {
-    /// <summary>
-    /// История продажи продукции
-    /// </summary>
-    public class HistoryOfProductSold
+    public class HistoryOfProductSoldRequest
     {
-        public int Id { get; set; }
-        public int ProductTypeId { get; set; }
         /// <summary>
         /// Тип продукта
         /// </summary>
-        public ProductType ProductType { get; set; }
+        public string ProductType { get; set; }
         public int Weight { get; set; }
         /// <summary>
         /// Стоймость продукции одной упаковки
@@ -30,5 +25,6 @@ namespace InventoryServer.Domain.Entities
         /// Окончание срока годности продукции
         /// </summary>
         public DateTime SellBy { get; set; }
+       
     }
 }
