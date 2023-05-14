@@ -8,36 +8,39 @@ namespace InventoryServer.Context.Providers.DeliveryCompanies
 {
     public class DeliveryCompanyProvider : IDeliveryCompanyProvider
     {
-        public ContextInventoryControl DbContextInventoryControl => new();
-
         public async Task<ICollection<DeliveryCompany>> GetAllDeliveryCompanyAsync()
         {
-            return await DbContextInventoryControl.DeliveryCompanies.ToListAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.DeliveryCompanies.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<DeliveryCompany> GetOneDeliveryCompanyAsync(string deliveryCompanyName)
         {
-            return await DbContextInventoryControl.DeliveryCompanies
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.DeliveryCompanies
                 .FirstAsync(d => d.Name == deliveryCompanyName)
                 .ConfigureAwait(false);
         }
 
         public async Task CreateDeliveryCompanyAsync(DeliveryCompany deliveryCompany)
         {
-            DbContextInventoryControl.DeliveryCompanies.Add(deliveryCompany);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.DeliveryCompanies.Add(deliveryCompany);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateDeliveryCompanyAsync(DeliveryCompany deliveryCompany, DeliveryCompany newDeliveryCompany)
         {
+            using var dbContextInventoryControl = new ContextInventoryControl();
             deliveryCompany.Name = newDeliveryCompany.Name;
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteDeliveryCompanyAsync(DeliveryCompany deliveryCompany)
         {
-            DbContextInventoryControl.DeliveryCompanies.Remove(deliveryCompany);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.DeliveryCompanies.Remove(deliveryCompany);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

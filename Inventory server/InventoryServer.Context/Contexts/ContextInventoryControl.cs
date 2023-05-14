@@ -1,19 +1,13 @@
-﻿using System.Data.Common;
+﻿
 using System.Data.Entity;
-using System.Data.Entity.Core.EntityClient;
+using InventoryServer.Context.SqlConnectSettings;
 using InventoryServer.Domain.Entities;
 
 namespace InventoryServer.Context.Contexts
 {
-
     public class ContextInventoryControl : DbContext
     {
-        public ContextInventoryControl() :
-            base(@"Data Source=DESKTOP-01LDJSC\SQLEXPRESS;"
-                 + "Initial Catalog=InventoryControl;Integrated Security=True;")
-        {
-
-        }
+        public ContextInventoryControl() : base(InventoryControlConnectSettings.SqlConnectionIntegratedSecurity) { }
         public DbSet<DeliveryCompany> DeliveryCompanies { get; set; }
         public DbSet<HistoryOfProductSold> HistoryOfProductsSolids { get; set; }
         public DbSet<HistoryMarriageProduct> HistoryMarriageProducts { get; set; }

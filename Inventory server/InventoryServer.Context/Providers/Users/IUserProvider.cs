@@ -7,7 +7,6 @@ namespace InventoryServer.Context.Providers
 {
     public interface IUserProvider
     {
-        public ContextInventoryControl DbContextInventoryControl { get; }
         Task<ICollection<User>> GetAllUserAsync();
         Task<User> GetOneUserAsync(string userName);
         Task CreateUserAsync(User user);

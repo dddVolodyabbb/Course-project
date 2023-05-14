@@ -25,10 +25,9 @@ namespace Inventory_server.Commands.ProductType
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
-            var productTypeName = match.Groups[ProductTypeName].Value;
+            var productTypeName = path.Groups[ProductTypeName].Value;
             if (productTypeName is "" or "ProductTypeName")
                 await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
 using InventoryServer.Context.Providers.ProductTypes;
@@ -23,7 +24,7 @@ namespace Inventory_server.Commands.ProductType
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
             var productTypeCollection = await _companyProvider.GetAllProductTypeAsync();
             var response = productTypeCollection.Select(productType => productType.ToResponse()).ToList();

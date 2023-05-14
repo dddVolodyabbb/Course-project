@@ -3,6 +3,7 @@ using InventoryServer.Services.Crypt;
 using InventoryServer.Services.JwtToken;
 using System.Net.Http;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
 using InventoryServer.Context.Providers;
@@ -27,7 +28,7 @@ namespace Inventory_server.Commands.User
             _jwtTokenService = jwtTokenService;
         }
 
-        public async Task HandleRequestAsync(HttpListenerContext context)
+        public async Task HandleRequestAsync(HttpListenerContext context, Match path)
         {
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<LoginRequest>(requestBody, out var loginRequest))

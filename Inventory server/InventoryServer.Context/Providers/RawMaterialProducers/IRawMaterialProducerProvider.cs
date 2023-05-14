@@ -10,7 +10,6 @@ namespace InventoryServer.Context.Providers.RawMaterialProducers
 {
     public interface IRawMaterialProducerProvider
     {
-        public ContextInventoryControl DbContextInventoryControl { get; }
         Task<ICollection<RawMaterialProducer>> GetAllRawMaterialProducerAsync();
         Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(string rawMaterialProducerName);
         Task CreateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer);

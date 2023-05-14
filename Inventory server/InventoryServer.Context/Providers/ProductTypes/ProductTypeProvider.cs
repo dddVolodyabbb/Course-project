@@ -9,35 +9,39 @@ namespace InventoryServer.Context.Providers.ProductTypes
 {
     public class ProductTypeProvider : IProductTypeProvider
     {
-        public ContextInventoryControl DbContextInventoryControl => new();
         public async Task<ICollection<ProductType>> GetAllProductTypeAsync()
         {
-            return await DbContextInventoryControl.ProductTypes.ToListAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.ProductTypes.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<ProductType> GetOneProductTypeAsync(string productTypeName)
         {
-            return await DbContextInventoryControl.ProductTypes
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.ProductTypes
                 .FirstAsync(d => d.Name == productTypeName)
                 .ConfigureAwait(false);
         }
 
         public async Task CreateProductTypeAsync(ProductType productType)
         {
-            DbContextInventoryControl.ProductTypes.Add(productType);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.ProductTypes.Add(productType);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateProductTypeAsync(ProductType productTypeName, ProductType newProductType)
         {
+            using var dbContextInventoryControl = new ContextInventoryControl();
             productTypeName.Name = newProductType.Name;
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteProductTypeAsync(ProductType productType)
         {
-            DbContextInventoryControl.ProductTypes.Remove(productType);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.ProductTypes.Remove(productType);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

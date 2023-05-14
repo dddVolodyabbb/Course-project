@@ -51,18 +51,31 @@ public class Server : IServer
 			var method = context.Request.HttpMethod;
 			var path = context.Request.Url.AbsolutePath.TrimEnd('/');
 
-			var command = _commands.FirstOrDefault(command =>
-				command.Method.ToString() == method &&
-				Regex.IsMatch(path, $"^{command.Path}$", RegexOptions.IgnoreCase));
+            var commandsWithRegex = _commands
+                .Where(command => command.Method.ToString() == method)
+                .Select(command => new
+                {
+                    Command = command,
+                    Path = Regex.Match(path, $"^{command.Path}$", RegexOptions.IgnoreCase)
+                })
+                .Where(group => group.Path.Success)
+                .ToArray();
 
-			if (command == null)
-			{
-				await context.WriteResponseAsync(501, $"Not found command for path {path} with method {method}").ConfigureAwait(false);
-				return;
-			}
+            if (!commandsWithRegex.Any())
+            {
+                await context.WriteResponseAsync(501, $"Не найдена команда для пути {path} с методом {method}").ConfigureAwait(false);
+                return;
+            }
 
-			await command.HandleRequestAsync(context).ConfigureAwait(false);
-		}
+            if (commandsWithRegex.Length > 1)
+            {
+                await context.WriteResponseAsync(501, $"Множественная команда привязки для пути {path} с методом {method}").ConfigureAwait(false);
+                return;
+            }
+
+            var single = commandsWithRegex.Single();
+            await single.Command.HandleRequestAsync(context, single.Path).ConfigureAwait(false);
+        }
 		catch (Exception exception)
 		{
 			Console.WriteLine(exception);

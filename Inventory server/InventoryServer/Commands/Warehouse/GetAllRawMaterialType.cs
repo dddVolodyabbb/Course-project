@@ -5,29 +5,29 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
-using InventoryServer.Context.Providers.DeliveryCompanies;
+using InventoryServer.Context.Providers.Warehouses;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.DeliveryCompany
+namespace Inventory_server.Commands.Warehouse
 {
-    public class GetAllDeliveryCompany : AuthorizationCommand
+    public class GetAllWarehouse : AuthorizationCommand
     {
-        public override string Path => @"/DeliveryCompany/GetAll";
+        public override string Path => @"/Warehouse/GetAll";
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser};
-        private readonly IDeliveryCompanyProvider _companyProvider;
-        public GetAllDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider companyProvider) : base(jwtTokenService)
+        private readonly IWarehouseProvider _companyProvider;
+        public GetAllWarehouse(IJwtTokenService jwtTokenService, IWarehouseProvider companyProvider) : base(jwtTokenService)
         {
             _companyProvider = companyProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var deliveryCompanyCollection = await _companyProvider.GetAllDeliveryCompanyAsync();
-            var response = deliveryCompanyCollection.Select(deliveryCompany => deliveryCompany.ToResponse()).ToList();
+            var warehouseCollection = await _companyProvider.GetAllWarehouseAsync();
+            var response = warehouseCollection.Select(warehouse => warehouse.ToResponse()).ToList();
 
             await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
         }

@@ -8,35 +8,39 @@ namespace InventoryServer.Context.Providers.RawMaterialTypes
 {
     public class RawMaterialTypeProvider : IRawMaterialTypeProvider
     {
-        public ContextInventoryControl DbContextInventoryControl => new();
         public async Task<ICollection<RawMaterialType>> GetAllRawMaterialTypeAsync()
         {
-            return await DbContextInventoryControl.RawMaterialsTypes.ToListAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.RawMaterialsTypes.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<RawMaterialType> GetOneRawMaterialTypeAsync(string rawMaterialTypeName)
         {
-            return await DbContextInventoryControl.RawMaterialsTypes
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.RawMaterialsTypes
                 .FirstAsync(d => d.Name == rawMaterialTypeName)
                 .ConfigureAwait(false);
         }
 
         public async Task CreateRawMaterialTypeAsync(RawMaterialType rawMaterialType)
         {
-            DbContextInventoryControl.RawMaterialsTypes.Add(rawMaterialType);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.RawMaterialsTypes.Add(rawMaterialType);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateRawMaterialTypeAsync(RawMaterialType rawMaterialType, RawMaterialType newRawMaterialType)
         {
+            using var dbContextInventoryControl = new ContextInventoryControl();
             rawMaterialType.Name = newRawMaterialType.Name;
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteRawMaterialTypeAsync(RawMaterialType rawMaterialType)
         {
-            DbContextInventoryControl.RawMaterialsTypes.Remove(rawMaterialType);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.RawMaterialsTypes.Remove(rawMaterialType);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

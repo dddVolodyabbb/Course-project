@@ -7,7 +7,6 @@ namespace InventoryServer.Context.Providers.ProductTypes
 {
     public interface IProductTypeProvider
     {
-        public ContextInventoryControl DbContextInventoryControl { get; }
         Task<ICollection<ProductType>> GetAllProductTypeAsync();
         Task<ProductType> GetOneProductTypeAsync(string productTypeName);
         Task CreateProductTypeAsync(ProductType productType);

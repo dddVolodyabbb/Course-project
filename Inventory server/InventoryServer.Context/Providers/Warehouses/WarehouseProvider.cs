@@ -8,35 +8,39 @@ namespace InventoryServer.Context.Providers.Warehouses
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        public ContextInventoryControl DbContextInventoryControl => new();
         public async Task<ICollection<Warehouse>> GetAllWarehouseAsync()
         {
-            return await DbContextInventoryControl.Warehouses.ToListAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.Warehouses.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<Warehouse> GetOneWarehouseAsync(string warehouseName)
         {
-            return await DbContextInventoryControl.Warehouses
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.Warehouses
                 .FirstAsync(d => d.Name == warehouseName)
                 .ConfigureAwait(false);
         }
 
         public async Task CreateWarehouseAsync(Warehouse warehouse)
         {
-            DbContextInventoryControl.Warehouses.Add(warehouse);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.Warehouses.Add(warehouse);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateWarehouseAsync(Warehouse warehouse, Warehouse newWarehouse)
         {
+            using var dbContextInventoryControl = new ContextInventoryControl();
             warehouse.Name = newWarehouse.Name;
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteWarehouseAsync(Warehouse warehouse)
         {
-            DbContextInventoryControl.Warehouses.Remove(warehouse);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.Warehouses.Remove(warehouse);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

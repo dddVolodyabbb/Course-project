@@ -25,10 +25,9 @@ namespace Inventory_server.Commands.DeliveryCompany
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
-            var deliveryCompanyName = match.Groups[DeliveryCompanyName].Value;
+            var deliveryCompanyName = path.Groups[DeliveryCompanyName].Value;
             if (deliveryCompanyName is "" or "DeliveryCompanyName")
                 await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
 

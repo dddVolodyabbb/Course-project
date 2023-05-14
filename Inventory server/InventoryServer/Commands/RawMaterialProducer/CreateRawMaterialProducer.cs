@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Context.Providers.RawMaterialProducers;
 using InventoryServer.Domain.Entities;
@@ -16,7 +17,7 @@ namespace InventoryServer.Commands.RawMaterialProducer
     public class CreateRawMaterialProducer : AuthorizationCommand
     {
 
-        public override string Path => @"/RawMaterialProducer";
+        public override string Path => @"/RawMaterialProducer/Create";
         public override HttpMethod Method => HttpMethod.Post;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
         private readonly IRawMaterialProducerProvider _companyProvider;
@@ -25,7 +26,7 @@ namespace InventoryServer.Commands.RawMaterialProducer
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<RawMaterialProducerRequest>(requestBody, out var rawMaterialProducerRequest))

@@ -7,7 +7,6 @@ namespace InventoryServer.Context.Providers.Warehouses
 {
     public interface IWarehouseProvider
     {
-        public ContextInventoryControl DbContextInventoryControl { get; }
         Task<ICollection<Warehouse>> GetAllWarehouseAsync();
         Task<Warehouse> GetOneWarehouseAsync(string warehouseName);
         Task CreateWarehouseAsync(Warehouse warehouse);

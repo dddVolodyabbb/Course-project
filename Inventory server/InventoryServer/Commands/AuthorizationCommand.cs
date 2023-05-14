@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
@@ -23,7 +24,7 @@ namespace InventoryServer.Commands
             _jwtTokenService = jwtTokenService;
         }
 
-        public async Task HandleRequestAsync(HttpListenerContext context)
+        public async Task HandleRequestAsync(HttpListenerContext context, Match path)
         {
             var checkTokenResult = _jwtTokenService.CheckToken(context.Request.Headers[AuthorizationHeaderKey]);
             if (checkTokenResult.IsFaulted)
@@ -38,9 +39,9 @@ namespace InventoryServer.Commands
                 return;
             }
 
-            await HandleRequestInternalAsync(context).ConfigureAwait(false);
+            await HandleRequestInternalAsync(context, path).ConfigureAwait(false);
         }
 
-        protected abstract Task HandleRequestInternalAsync(HttpListenerContext context);
+        protected abstract Task HandleRequestInternalAsync(HttpListenerContext context, Match path);
     }
 }

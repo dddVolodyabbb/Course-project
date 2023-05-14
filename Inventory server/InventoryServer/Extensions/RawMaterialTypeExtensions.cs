@@ -6,7 +6,7 @@ namespace InventoryServer.Extensions
 {
     public static class RawMaterialTypeExtensions
     {
-        public static RawMaterialTypeResponse ToResponse(RawMaterialType rawMaterialType)
+        public static RawMaterialTypeResponse ToResponse(this RawMaterialType rawMaterialType)
         {
             return new RawMaterialTypeResponse
             {

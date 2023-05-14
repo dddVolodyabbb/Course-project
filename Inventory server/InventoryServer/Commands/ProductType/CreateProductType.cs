@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Context.Providers.ProductTypes;
 using InventoryServer.Domain.Entities;
@@ -15,8 +14,7 @@ namespace InventoryServer.Commands.ProductType
 {
     public class CreateProductType : AuthorizationCommand
     {
-
-        public override string Path => @"/ProductType";
+        public override string Path => @"/ProductType/Create";
         public override HttpMethod Method => HttpMethod.Post;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
         private readonly IProductTypeProvider _companyProvider;
@@ -25,7 +23,7 @@ namespace InventoryServer.Commands.ProductType
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<ProductTypeRequest>(requestBody, out var productTypeRequest))

@@ -4,12 +4,16 @@ using Grace.DependencyInjection;
 using Inventory_server.Commands.DeliveryCompany;
 using Inventory_server.Commands.ProductType;
 using Inventory_server.Commands.RawMaterialProducer;
+using Inventory_server.Commands.RawMaterialType;
 using Inventory_server.Commands.User;
+using Inventory_server.Commands.Warehouse;
 using InventoryServer;
 using InventoryServer.Commands;
 using InventoryServer.Commands.DeliveryCompany;
 using InventoryServer.Commands.ProductType;
 using InventoryServer.Commands.RawMaterialProducer;
+using InventoryServer.Commands.RawMaterialType;
+using InventoryServer.Commands.Warehouse;
 using InventoryServer.Context.Providers;
 using InventoryServer.Context.Providers.DeliveryCompanies;
 using InventoryServer.Context.Providers.ProductTypes;
@@ -81,6 +85,26 @@ namespace Inventory_server
             RegisterSingleton<ICommand, GetAllRawMaterialProducer>(registration);
             RegisterSingleton<ICommand, GetOneRawMaterialProducer>(registration);
             RegisterSingleton<ICommand, UpdateRawMaterialProducer>(registration);
+
+            #endregion
+
+            #region RawMaterialTypeCommands
+
+            RegisterSingleton<ICommand, CreateRawMaterialType>(registration);
+            RegisterSingleton<ICommand, DeleteRawMaterialType>(registration);
+            RegisterSingleton<ICommand, GetAllRawMaterialType>(registration);
+            RegisterSingleton<ICommand, GetOneRawMaterialType>(registration);
+            RegisterSingleton<ICommand, UpdateRawMaterialType>(registration);
+
+            #endregion
+
+            #region WarehouseCommands
+
+            RegisterSingleton<ICommand, CreateWarehouse>(registration);
+            RegisterSingleton<ICommand, DeleteWarehouse>(registration);
+            RegisterSingleton<ICommand, GetAllWarehouse>(registration);
+            RegisterSingleton<ICommand, GetOneWarehouse>(registration);
+            RegisterSingleton<ICommand, UpdateWarehouse>(registration);
 
             #endregion
 

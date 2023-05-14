@@ -4,23 +4,23 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
-using InventoryServer.Context.Providers.DeliveryCompanies;
+using InventoryServer.Context.Providers.Warehouses;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.DeliveryCompany
+namespace Inventory_server.Commands.Warehouse
 {
-    public class GetOneDeliveryCompany : AuthorizationCommand
+    public class GetOneWarehouse : AuthorizationCommand
     {
-        private const string DeliveryCompanyName = "DeliveryCompanyName";
-        public override string Path => @$"/DeliveryCompany/GetOne?Name=(?<{DeliveryCompanyName}>.+)";
+        private const string WarehouseName = "WarehouseName";
+        public override string Path => @$"/Warehouse/GetOne?Name=(?<{WarehouseName}>.+)";
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
-        private readonly IDeliveryCompanyProvider _companyProvider;
+        private readonly IWarehouseProvider _companyProvider;
 
-        public GetOneDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider companyProvider) : base(
+        public GetOneWarehouse(IJwtTokenService jwtTokenService, IWarehouseProvider companyProvider) : base(
             jwtTokenService)
         {
             _companyProvider = companyProvider;
@@ -28,10 +28,10 @@ namespace Inventory_server.Commands.DeliveryCompany
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var deliveryCompanyName = path.Groups[DeliveryCompanyName].Value;
-            if (deliveryCompanyName is "" or "DeliveryCompanyName")
+            var warehouseName = path.Groups[WarehouseName].Value;
+            if (warehouseName is "" or "WarehouseName")
                 await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-            var response = await _companyProvider.GetOneDeliveryCompanyAsync(deliveryCompanyName);
+            var response = await _companyProvider.GetOneWarehouseAsync(warehouseName);
 
             await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
         }

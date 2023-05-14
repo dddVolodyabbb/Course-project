@@ -26,10 +26,9 @@ namespace Inventory_server.Commands.RawMaterialProducer
             _companyProvider = companyProvider;
         }
 
-        protected override async Task HandleRequestInternalAsync(HttpListenerContext context)
+        protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
-            var rawMaterialProducerName = match.Groups[RawMaterialProducerName].Value;
+            var rawMaterialProducerName = path.Groups[RawMaterialProducerName].Value;
             if (rawMaterialProducerName is "" or "RawMaterialProducerName")
                 await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
             var response = await _companyProvider.GetOneRawMaterialProducerAsync(rawMaterialProducerName);

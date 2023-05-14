@@ -7,7 +7,6 @@ namespace InventoryServer.Context.Providers.DeliveryCompanies
 {
     public interface IDeliveryCompanyProvider
     {
-        public ContextInventoryControl DbContextInventoryControl { get; }
         Task<ICollection<DeliveryCompany>> GetAllDeliveryCompanyAsync();
         Task<DeliveryCompany> GetOneDeliveryCompanyAsync(string deliveryCompanyName);
         Task CreateDeliveryCompanyAsync(DeliveryCompany deliveryCompany);

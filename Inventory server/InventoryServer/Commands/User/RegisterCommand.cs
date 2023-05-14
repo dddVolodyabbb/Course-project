@@ -2,9 +2,9 @@
 using InventoryServer.Domain.Entities;
 using InventoryServer.Helpers;
 using InventoryServer.Services.Crypt;
-using System;
 using System.Net.Http;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
 using InventoryServer.Context.Providers;
@@ -26,19 +26,12 @@ namespace Inventory_server.Commands.User
             _usersProvider = usersProvider;
         }
 
-        public async Task HandleRequestAsync(HttpListenerContext context)
+        public async Task HandleRequestAsync(HttpListenerContext context, Match path)
         {
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<RegisterRequest>(requestBody, out var registerRequest))
             {
-                await context.WriteResponseAsync(400, "Invalid request body content").ConfigureAwait(false);
-                return;
-            }
-
-            var user = await _usersProvider.GetOneUserAsync(registerRequest.Name).ConfigureAwait(false);
-            if (user != null)
-            {
-                await context.WriteResponseAsync(400, "User name already register").ConfigureAwait(false);
+                await context.WriteResponseAsync(400, "Недопустимое содержимое тела запроса").ConfigureAwait(false);
                 return;
             }
 

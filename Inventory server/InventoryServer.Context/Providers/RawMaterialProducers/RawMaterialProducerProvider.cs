@@ -8,35 +8,39 @@ namespace InventoryServer.Context.Providers.RawMaterialProducers
 {
     public class RawMaterialProducerProvider : IRawMaterialProducerProvider
     {
-        public ContextInventoryControl DbContextInventoryControl => new();
         public async Task<ICollection<RawMaterialProducer>> GetAllRawMaterialProducerAsync()
         {
-            return await DbContextInventoryControl.RawMaterialsProducers.ToListAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.RawMaterialsProducers.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(string rawMaterialProducerName)
         {
-            return await DbContextInventoryControl.RawMaterialsProducers
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            return await dbContextInventoryControl.RawMaterialsProducers
                 .FirstAsync(d => d.Name == rawMaterialProducerName)
                 .ConfigureAwait(false);
         }
 
         public async Task CreateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer)
         {
-            DbContextInventoryControl.RawMaterialsProducers.Add(rawMaterialProducer);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.RawMaterialsProducers.Add(rawMaterialProducer);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer, RawMaterialProducer newRawMaterialProducer)
         {
+            using var dbContextInventoryControl = new ContextInventoryControl();
             rawMaterialProducer.Name = newRawMaterialProducer.Name;
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer)
         {
-            DbContextInventoryControl.RawMaterialsProducers.Remove(rawMaterialProducer);
-            await DbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
+            using var dbContextInventoryControl = new ContextInventoryControl();
+            dbContextInventoryControl.RawMaterialsProducers.Remove(rawMaterialProducer);
+            await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }
