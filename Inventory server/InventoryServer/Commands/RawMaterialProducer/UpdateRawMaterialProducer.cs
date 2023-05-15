@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InventoryServer.Commands;
-using InventoryServer.Context.Contexts;
+
 using InventoryServer.Context.Providers.RawMaterialProducers;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
@@ -19,8 +16,8 @@ namespace Inventory_server.Commands.RawMaterialProducer
 {
     public class UpdateRawMaterialProducer : AuthorizationCommand
     {
-        private const string RawMaterialProducerName = "RawMaterialProducerName";
-        public override string Path => @$"/RawMaterialProducer/Update?Name=(?<{RawMaterialProducerName}>.+)";
+        private const string RawMaterialProducerId = "RawMaterialProducerId";
+        public override string Path => @$"/RawMaterialProducer/Update?Id=(?<{RawMaterialProducerId}>.+)";
         public override HttpMethod Method => HttpMethod.Put;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
         private readonly IRawMaterialProducerProvider _companyProvider;
@@ -31,14 +28,11 @@ namespace Inventory_server.Commands.RawMaterialProducer
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var rawMaterialProducerName = path.Groups[RawMaterialProducerName].Value;
-            if (rawMaterialProducerName is "" or "RawMaterialProducerName")
-                await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-
-            var rawMaterialProducer = await _companyProvider.GetOneRawMaterialProducerAsync(rawMaterialProducerName);
+            var rawMaterialProducerId = int.Parse(path.Groups[RawMaterialProducerId].Value);
+			var rawMaterialProducer = await _companyProvider.GetOneRawMaterialProducerAsync(rawMaterialProducerId);
             if (rawMaterialProducer is null)
             {
-                await context.WriteResponseAsync(404, $"Компании \"{rawMaterialProducerName}\" не существует в базе данных").ConfigureAwait(false);
+                await context.WriteResponseAsync(404, $"Компании \"{rawMaterialProducerId}\" не существует в базе данных").ConfigureAwait(false);
                 return;
             }
 
@@ -51,7 +45,7 @@ namespace Inventory_server.Commands.RawMaterialProducer
 
             var newRawMaterialProducer = rawMaterialProducerRequest.ToEntity();
 
-            await _companyProvider.UpdateRawMaterialProducerAsync(rawMaterialProducer, newRawMaterialProducer).ConfigureAwait(false);
+            await _companyProvider.UpdateRawMaterialProducerAsync(rawMaterialProducerId, newRawMaterialProducer).ConfigureAwait(false);
             await context.WriteResponseAsync(201, null).ConfigureAwait(false);
         }
     }

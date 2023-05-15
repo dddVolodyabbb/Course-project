@@ -1,9 +1,8 @@
-﻿using InventoryServer.Context.Contexts;
+﻿
 using InventoryServer.Domain.Entities;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Threading.Tasks;
 
 namespace InventoryServer.Context.Providers.RawMaterialProducers
@@ -11,9 +10,10 @@ namespace InventoryServer.Context.Providers.RawMaterialProducers
     public interface IRawMaterialProducerProvider
     {
         Task<ICollection<RawMaterialProducer>> GetAllRawMaterialProducerAsync();
-        Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(string rawMaterialProducerName);
+		Task<RawMaterialProducer> GetRawMaterialProducerByNameAsync(string name);
+        Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(int rawMaterialProducerId);
         Task CreateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer);
-        Task UpdateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer, RawMaterialProducer newRawMaterialProducer);
-        Task DeleteRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer);
+        Task UpdateRawMaterialProducerAsync(int id, RawMaterialProducer newRawMaterialProducer);
+        Task DeleteRawMaterialProducerAsync(int id);
     }
 }

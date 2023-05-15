@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿
 using System.Threading.Tasks;
 using InventoryServer.Context.Contexts;
 using InventoryServer.Context.Providers.ProductTypes;
@@ -29,10 +29,10 @@ namespace InventoryServer.Extensions
             {
                 Percent = percentageOfRawMaterialRequest.Percent,
                 ProductType = await new ProductTypeProvider()
-                    .GetOneProductTypeAsync(percentageOfRawMaterialRequest.ProductType)
+                    .GetProductTypeByNameAsync(percentageOfRawMaterialRequest.ProductType)
                     .ConfigureAwait(false),
                 RawMaterialType = await new RawMaterialTypeProvider()
-                    .GetOneRawMaterialTypeAsync(percentageOfRawMaterialRequest.RawMaterialType)
+                    .GetRawMaterialTypeByNameAsync(percentageOfRawMaterialRequest.RawMaterialType)
                     .ConfigureAwait(false),
             };
         }

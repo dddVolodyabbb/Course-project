@@ -30,7 +30,7 @@ public class CreateWarehouse : AuthorizationCommand
         var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
         if (!JsonSerializeHelper.TryDeserialize<WarehouseRequest>(requestBody, out var warehouseRequest))
         {
-            await context.WriteResponseAsync(400, "Не правельное тело запроса").ConfigureAwait(false);
+            await context.WriteResponseAsync(400, "Недопустимое содержимое тела запроса").ConfigureAwait(false);
             return;
         }
 

@@ -14,7 +14,7 @@ namespace Inventory_server.Commands.Warehouse;
 
 public class UpdateWarehouse : AuthorizationCommand
 {
-    private const string WarehouseName = "WarehouseName";
+    private const string WarehouseId = "WarehouseId";
     private readonly IWarehouseProvider _companyProvider;
 
     public UpdateWarehouse(IJwtTokenService jwtTokenService, IWarehouseProvider companyProvider) : base(
@@ -23,20 +23,17 @@ public class UpdateWarehouse : AuthorizationCommand
         _companyProvider = companyProvider;
     }
 
-    public override string Path => @$"/Warehouse/Update?Name=(?<{WarehouseName}>.+)";
+    public override string Path => @$"/Warehouse/Update?Id=(?<{WarehouseId}>.+)";
     public override HttpMethod Method => HttpMethod.Put;
     public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 
     protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
     {
-        var warehouseName = path.Groups[WarehouseName].Value;
-        if (warehouseName is "" or "WarehouseName")
-            await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-
-        var warehouse = await _companyProvider.GetOneWarehouseAsync(warehouseName);
+        var warehouseId = int.Parse(path.Groups[WarehouseId].Value);
+		var warehouse = await _companyProvider.GetOneWarehouseAsync(warehouseId);
         if (warehouse is null)
         {
-            await context.WriteResponseAsync(404, $"Компании \"{warehouseName}\" не существует в базе данных")
+            await context.WriteResponseAsync(404, $"Компании \"{warehouseId}\" не существует в базе данных")
                 .ConfigureAwait(false);
             return;
         }
@@ -49,8 +46,7 @@ public class UpdateWarehouse : AuthorizationCommand
         }
 
         var newWarehouse = WarehouseRequest.ToEntity();
-
-        await _companyProvider.UpdateWarehouseAsync(warehouse, newWarehouse).ConfigureAwait(false);
+		await _companyProvider.UpdateWarehouseAsync(warehouseId, newWarehouse).ConfigureAwait(false);
         await context.WriteResponseAsync(201).ConfigureAwait(false);
     }
 }

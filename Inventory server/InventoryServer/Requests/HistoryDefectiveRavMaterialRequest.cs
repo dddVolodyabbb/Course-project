@@ -1,15 +1,17 @@
 ﻿
 using System;
 
-namespace InventoryServer.Respones
+namespace InventoryServer.Requests
 {
-    public class HistoryMarriageRavMaterialResponse
+    /// <summary>
+    /// История брака сыръя
+    /// </summary>
+    public class HistoryDefectiveRavMaterialRequest
     {
-        public int Id { get; set; }
         /// <summary>
         /// Бракованная продукция/сырьё
         /// </summary>
-        public string RavMaterialType { get; set; }
+        public string RawMaterialType { get; set; }
         /// <summary>
         /// Вес в граммах
         /// </summary>

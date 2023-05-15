@@ -15,8 +15,8 @@ namespace Inventory_server.Commands.DeliveryCompany
 {
     public class UpdateDeliveryCompany : AuthorizationCommand
     {
-        private const string DeliveryCompanyName = "DeliveryCompanyName";
-        public override string Path => @$"/DeliveryCompany/Update?Name=(?<{DeliveryCompanyName}>.+)";
+        private const string DeliveryCompanyId = "DeliveryCompanyId";
+        public override string Path => @$"/DeliveryCompany/Update?Id=(?<{DeliveryCompanyId}>.+)";
         public override HttpMethod Method => HttpMethod.Put;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
         private readonly IDeliveryCompanyProvider _companyProvider;
@@ -27,14 +27,11 @@ namespace Inventory_server.Commands.DeliveryCompany
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var deliveryCompanyName = path.Groups[DeliveryCompanyName].Value;
-            if (deliveryCompanyName is "" or "DeliveryCompanyName")
-                await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-
-            var deliveryCompany = await _companyProvider.GetOneDeliveryCompanyAsync(deliveryCompanyName);
+            var deliveryCompanyId = int.Parse(path.Groups[DeliveryCompanyId].Value);
+			var deliveryCompany = await _companyProvider.GetOneDeliveryCompanyAsync(deliveryCompanyId);
             if (deliveryCompany is null)
             {
-                await context.WriteResponseAsync(404, $"Компании \"{deliveryCompanyName}\" не существует в базе данных").ConfigureAwait(false);
+                await context.WriteResponseAsync(404, $"Компании \"{deliveryCompanyId}\" не существует в базе данных").ConfigureAwait(false);
                 return;
             }
 
@@ -47,7 +44,7 @@ namespace Inventory_server.Commands.DeliveryCompany
 
             var newDeliveryCompany = deliveryCompanyRequest.ToEntity();
 
-            await _companyProvider.UpdateDeliveryCompanyAsync(deliveryCompany, newDeliveryCompany).ConfigureAwait(false);
+            await _companyProvider.UpdateDeliveryCompanyAsync(deliveryCompany.Id, newDeliveryCompany).ConfigureAwait(false);
             await context.WriteResponseAsync(201, null).ConfigureAwait(false);
         }
     }

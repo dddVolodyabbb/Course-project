@@ -28,7 +28,7 @@ namespace InventoryServer.Commands.ProductType
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<ProductTypeRequest>(requestBody, out var productTypeRequest))
             {
-                await context.WriteResponseAsync(400, "Не правельное тело запроса").ConfigureAwait(false);
+                await context.WriteResponseAsync(400, "Недопустимое содержимое тела запроса").ConfigureAwait(false);
                 return;
             }
 

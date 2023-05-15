@@ -57,6 +57,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DeliveryCompanies\DeliveryCompanyProvider.cs" />
     <Compile Include="Providers\DeliveryCompanies\IDeliveryCompanyProvider.cs" />
+    <Compile Include="Providers\HistoryDefectiveProducts\HistoryDefectiveProductsProvider.cs" />
+    <Compile Include="Providers\HistoryDefectiveProducts\IHistoryDefectiveProductsProvider.cs" />
+    <Compile Include="Providers\HistoryDefectiveRavMaterials\HistoryDefectiveProductsProvider.cs" />
+    <Compile Include="Providers\HistoryDefectiveRavMaterials\IHistoryDefectiveProductsProvider.cs" />
+    <Compile Include="Providers\HistoryOfProductSolids\HistoryDefectiveProductsProvider.cs" />
+    <Compile Include="Providers\HistoryOfProductSolids\IHistoryDefectiveProductsProvider.cs" />
     <Compile Include="Providers\Users\IUserProvider.cs" />
     <Compile Include="Providers\RawMaterialTypes\IRawMaterialTypeProvider.cs" />
     <Compile Include="Providers\ProductTypes\IProductTypeProvider.cs" />

@@ -39,10 +39,10 @@ namespace InventoryServer.Extensions
                 Suitability = productInOnePackageRequest.Suitability,
                 Weight = productInOnePackageRequest.Weight,
                 ProductType = await new ProductTypeProvider()
-                    .GetOneProductTypeAsync(productInOnePackageRequest.ProductType)
+                    .GetProductTypeByNameAsync(productInOnePackageRequest.ProductType)
                     .ConfigureAwait(false),
                 Warehouse = await new WarehouseProvider()
-                    .GetOneWarehouseAsync(productInOnePackageRequest.Warehouse)
+                    .GetWarehouseByNameAsync(productInOnePackageRequest.Warehouse)
                     .ConfigureAwait(false)
             };
         }

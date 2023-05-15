@@ -7,8 +7,9 @@ namespace InventoryServer.Context.Providers;
 public interface IRawMaterialTypeProvider
 {
     Task<ICollection<RawMaterialType>> GetAllRawMaterialTypeAsync();
-    Task<RawMaterialType> GetOneRawMaterialTypeAsync(string rawMaterialTypeName);
+	Task<RawMaterialType> GetRawMaterialTypeByNameAsync(string name);
+    Task<RawMaterialType> GetOneRawMaterialTypeAsync(int rawMaterialTypeId);
     Task CreateRawMaterialTypeAsync(RawMaterialType rawMaterialType);
-    Task UpdateRawMaterialTypeAsync(RawMaterialType rawMaterialType, RawMaterialType newRawMaterialType);
-    Task DeleteRawMaterialTypeAsync(RawMaterialType rawMaterialType);
+    Task UpdateRawMaterialTypeAsync(int id, RawMaterialType newRawMaterialType);
+    Task DeleteRawMaterialTypeAsync(int id);
 }

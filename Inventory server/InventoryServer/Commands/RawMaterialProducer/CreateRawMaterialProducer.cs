@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -31,7 +29,7 @@ namespace InventoryServer.Commands.RawMaterialProducer
             var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
             if (!JsonSerializeHelper.TryDeserialize<RawMaterialProducerRequest>(requestBody, out var rawMaterialProducerRequest))
             {
-                await context.WriteResponseAsync(400, "Не правельное тело запроса").ConfigureAwait(false);
+                await context.WriteResponseAsync(400, "Недопустимое содержимое тела запроса").ConfigureAwait(false);
                 return;
             }
 

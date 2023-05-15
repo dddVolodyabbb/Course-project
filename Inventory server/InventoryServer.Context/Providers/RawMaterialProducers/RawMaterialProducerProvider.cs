@@ -14,11 +14,19 @@ namespace InventoryServer.Context.Providers.RawMaterialProducers
             return await dbContextInventoryControl.RawMaterialsProducers.ToListAsync().ConfigureAwait(false);
         }
 
-        public async Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(string rawMaterialProducerName)
+		public async Task<RawMaterialProducer> GetRawMaterialProducerByNameAsync(string name)
+		{
+			using var dbContextInventoryControl = new ContextInventoryControl();
+			return await dbContextInventoryControl.RawMaterialsProducers
+				.FirstAsync(d => d.Name == name)
+				.ConfigureAwait(false);
+        }
+
+        public async Task<RawMaterialProducer> GetOneRawMaterialProducerAsync(int rawMaterialProducerId)
         {
             using var dbContextInventoryControl = new ContextInventoryControl();
             return await dbContextInventoryControl.RawMaterialsProducers
-                .FirstAsync(d => d.Name == rawMaterialProducerName)
+                .FirstAsync(d => d.Id == rawMaterialProducerId)
                 .ConfigureAwait(false);
         }
 
@@ -29,16 +37,22 @@ namespace InventoryServer.Context.Providers.RawMaterialProducers
             await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public async Task UpdateRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer, RawMaterialProducer newRawMaterialProducer)
+        public async Task UpdateRawMaterialProducerAsync(int id, RawMaterialProducer newRawMaterialProducer)
         {
             using var dbContextInventoryControl = new ContextInventoryControl();
+            var rawMaterialProducer = await dbContextInventoryControl.RawMaterialsProducers
+				.FirstAsync(d => d.Id == id)
+				.ConfigureAwait(false);
             rawMaterialProducer.Name = newRawMaterialProducer.Name;
             await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public async Task DeleteRawMaterialProducerAsync(RawMaterialProducer rawMaterialProducer)
+        public async Task DeleteRawMaterialProducerAsync(int id)
         {
             using var dbContextInventoryControl = new ContextInventoryControl();
+			var rawMaterialProducer = await dbContextInventoryControl.RawMaterialsProducers
+				.FirstAsync(d => d.Id == id)
+				.ConfigureAwait(false);
             dbContextInventoryControl.RawMaterialsProducers.Remove(rawMaterialProducer);
             await dbContextInventoryControl.SaveChangesAsync().ConfigureAwait(false);
         }

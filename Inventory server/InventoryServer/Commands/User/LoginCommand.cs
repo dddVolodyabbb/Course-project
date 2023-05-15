@@ -37,7 +37,7 @@ namespace Inventory_server.Commands.User
                 return;
             }
 
-            var user = await _usersProvider.GetOneUserAsync(loginRequest.Name).ConfigureAwait(false);
+            var user = await _usersProvider.GetUserByNameAsync(loginRequest.Name).ConfigureAwait(false);
             if (user == null)
             {
                 await context.WriteResponseAsync(400, "Неправильный логин").ConfigureAwait(false);

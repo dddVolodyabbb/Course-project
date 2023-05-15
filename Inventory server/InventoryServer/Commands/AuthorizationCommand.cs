@@ -10,7 +10,7 @@ using InventoryServer.Services.JwtToken;
 
 namespace InventoryServer.Commands
 {
-    public abstract class AuthorizationCommand:ICommand
+    public abstract class AuthorizationCommand : ICommand
     {
         private const string AuthorizationHeaderKey = @"/Authorization";
         public abstract string Path { get; }

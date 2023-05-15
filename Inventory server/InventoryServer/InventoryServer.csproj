@@ -70,22 +70,47 @@
     <Compile Include="Commands\DeliveryCompany\GetAllDeliveryCompany.cs" />
     <Compile Include="Commands\DeliveryCompany\GetOneDeliveryCompany.cs" />
     <Compile Include="Commands\DeliveryCompany\UpdateDeliveryCompany.cs" />
-    <Compile Include="Commands\ProductType\CreateDeliveryCompany.cs" />
-    <Compile Include="Commands\ProductType\DeleteDeliveryCompany.cs" />
-    <Compile Include="Commands\ProductType\GetAllDeliveryCompany.cs" />
-    <Compile Include="Commands\ProductType\GetOneDeliveryCompany.cs" />
-    <Compile Include="Commands\ProductType\UpdateDeliveryCompany.cs" />
-    <Compile Include="Commands\RawMaterialProducer\CreateDeliveryCompany.cs" />
-    <Compile Include="Commands\RawMaterialProducer\DeleteDeliveryCompany.cs" />
-    <Compile Include="Commands\RawMaterialProducer\GetAllDeliveryCompany.cs" />
-    <Compile Include="Commands\RawMaterialProducer\GetOneDeliveryCompany.cs" />
-    <Compile Include="Commands\RawMaterialProducer\UpdateDeliveryCompany.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\CreateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\DeleteHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\GetAllHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\GetOneHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\UpdateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\CreateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\DeleteHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetAllHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetOneHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\UpdateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\CreateHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\DeleteHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\GetAllHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\GetOneHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\UpdateHistoryOfProductSold.cs" />
+    <Compile Include="Commands\ProductType\CreateProductType.cs" />
+    <Compile Include="Commands\ProductType\DeleteProductType.cs" />
+    <Compile Include="Commands\ProductType\GetAllProductType.cs" />
+    <Compile Include="Commands\ProductType\GetOneProductType.cs" />
+    <Compile Include="Commands\ProductType\UpdateProductType.cs" />
+    <Compile Include="Commands\RawMaterialProducer\CreateRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\DeleteRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\GetAllRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\GetOneRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\UpdateRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialType\CreateRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\DeleteRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\GetAllRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\GetOneRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\UpdateRawMaterialType.cs" />
     <Compile Include="Commands\User\LoginCommand.cs" />
     <Compile Include="Commands\User\RegisterCommand.cs" />
+    <Compile Include="Commands\Warehouse\CreateWarehouse.cs" />
+    <Compile Include="Commands\Warehouse\DeleteWarehouse.cs" />
+    <Compile Include="Commands\Warehouse\GetAllRawMaterialType.cs" />
+    <Compile Include="Commands\Warehouse\GetOneRawMaterialType.cs" />
+    <Compile Include="Commands\Warehouse\UpdateRawMaterialType.cs" />
     <Compile Include="ConfigurationTokens.cs" />
     <Compile Include="Extensions\DeliveryCompanyExtensions.cs" />
-    <Compile Include="Extensions\HistoryMarriageProductExtensions.cs" />
-    <Compile Include="Extensions\HistoryMarriageRavMaterialExtensions.cs" />
+    <Compile Include="Extensions\HistoryDefectiveProductExtensions.cs" />
+    <Compile Include="Extensions\HistoryDefectiveRavMaterialExtensions.cs" />
     <Compile Include="Extensions\HistoryOfProductSoldExtensions.cs" />
     <Compile Include="Extensions\HttpListenerContextExtensions.cs" />
     <Compile Include="Extensions\HttpListenerRequestExtensions.cs" />
@@ -103,8 +128,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\DeliveryCompanyRequest.cs" />
-    <Compile Include="Requests\HistoryMarriageProductRequest.cs" />
-    <Compile Include="Requests\HistoryMarriageRavMaterialRequest.cs" />
+    <Compile Include="Requests\HistoryDefectiveProductRequest.cs" />
+    <Compile Include="Requests\HistoryDefectiveRavMaterialRequest.cs" />
     <Compile Include="Requests\HistoryOfProductSoldRequest.cs" />
     <Compile Include="Requests\PercentageOfRawMaterialRequest.cs" />
     <Compile Include="Requests\ProductInOnePackageRequest.cs" />
@@ -116,8 +141,8 @@
     <Compile Include="Requests\RegisterRequest.cs" />
     <Compile Include="Requests\WarehouseRequest.cs" />
     <Compile Include="Respones\DeliveryCompanyResponse.cs" />
-    <Compile Include="Respones\HistoryMarriageProductResponse.cs" />
-    <Compile Include="Respones\HistoryMarriageRavMaterialResponse.cs" />
+    <Compile Include="Respones\HistoryDefectiveProductResponse.cs" />
+    <Compile Include="Respones\HistoryDefectiveRavMaterialResponse.cs" />
     <Compile Include="Respones\HistoryOfProductSoldResponse.cs" />
     <Compile Include="Respones\PercentageOfRawMaterialResponse.cs" />
     <Compile Include="Respones\ProductInOnePackageResponse.cs" />
@@ -132,10 +157,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\RawMaterialType\" />
-    <Folder Include="Commands\Warehouse\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\InventoryServer.Context\InventoryServer.Context.csproj">
       <Project>{EBC65474-775F-424D-94CE-1713D59E18A8}</Project>

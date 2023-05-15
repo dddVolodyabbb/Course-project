@@ -14,8 +14,8 @@ namespace Inventory_server.Commands.Warehouse
 {
     public class GetOneWarehouse : AuthorizationCommand
     {
-        private const string WarehouseName = "WarehouseName";
-        public override string Path => @$"/Warehouse/GetOne?Name=(?<{WarehouseName}>.+)";
+        private const string WarehouseId = "WarehouseId";
+        public override string Path => @$"/Warehouse/GetOne?Id=(?<{WarehouseId}>.+)";
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
         private readonly IWarehouseProvider _companyProvider;
@@ -28,12 +28,9 @@ namespace Inventory_server.Commands.Warehouse
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var warehouseName = path.Groups[WarehouseName].Value;
-            if (warehouseName is "" or "WarehouseName")
-                await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-            var response = await _companyProvider.GetOneWarehouseAsync(warehouseName);
-
-            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+            var warehouseId = int.Parse(path.Groups[WarehouseId].Value);
+			var response = await _companyProvider.GetOneWarehouseAsync(warehouseId);
+			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
         }
     }
 }

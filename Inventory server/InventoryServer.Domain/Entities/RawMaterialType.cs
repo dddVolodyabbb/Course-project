@@ -14,6 +14,6 @@ namespace InventoryServer.Domain.Entities
         public string Name { get; set; }
         public ICollection<RawMaterialInOnePackage> RawMaterialInOnePackage { get; set; }
         public ICollection<PercentageOfRawMaterial> PercentOfRawMaterials { get; set;}
-        public ICollection<HistoryMarriageRavMaterial> HistoryMarriageRavMaterials { get; set;}
+        public ICollection<HistoryDefectiveRavMaterial> HistoryMarriageRavMaterials { get; set;}
     }
 }

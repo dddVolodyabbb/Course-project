@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryServer.Domain.Entities
 {
-    public class HistoryMarriageProduct
+    /// <summary>
+    /// История брака сыръя
+    /// </summary>
+    public class HistoryDefectiveRavMaterial
     {
         public int Id { get; set; }
-        public int ProductTypeId { get; set; }
+        public int RawMaterialTypeId { get; set; }
         /// <summary>
-        /// Бракованная продукция
+        /// Бракованное сырьё
         /// </summary>
-        public ProductType ProductType { get; set; }
+        public RawMaterialType RawMaterialType { get; set; }
         /// <summary>
         /// Вес в граммах
         /// </summary>
@@ -30,6 +29,5 @@ namespace InventoryServer.Domain.Entities
         /// Примечание
         /// </summary>
         public string Note { get; set; }
-
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System;
 
-namespace InventoryServer.Domain.Entities
+namespace InventoryServer.Requests
 {
-    /// <summary>
-    /// История брака сыръя
-    /// </summary>
-    public class HistoryMarriageRavMaterial
+    public class HistoryDefectiveProductRequest
     {
-        public int Id { get; set; }
-        public int RawMaterialTypeId { get; set; }
         /// <summary>
-        /// Бракованное сырьё
+        /// Бракованная продукция
         /// </summary>
-        public RawMaterialType RawMaterialType { get; set; }
+        public string ProductType { get; set; }
         /// <summary>
         /// Вес в граммах
         /// </summary>

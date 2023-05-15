@@ -1,16 +1,16 @@
-﻿using InventoryServer.Context.Contexts;
-using InventoryServer.Domain.Entities;
+﻿using InventoryServer.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace InventoryServer.Context.Providers
 {
-    public interface IUserProvider
-    {
-        Task<ICollection<User>> GetAllUserAsync();
-        Task<User> GetOneUserAsync(string userName);
-        Task CreateUserAsync(User user);
-        Task UpdateUserAsync(User user, User newUser);
-        Task DeleteUserAsync(User user);
-    }
+	public interface IUserProvider
+	{
+		Task<ICollection<User>> GetAllUserAsync();
+		Task<User> GetUserByNameAsync(string name);
+		Task<User> GetOneUserAsync(int userId);
+		Task CreateUserAsync(User user);
+		Task UpdateUserAsync(int id, User newUser);
+		Task DeleteUserAsync(int id);
+	}
 }

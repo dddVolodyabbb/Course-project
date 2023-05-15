@@ -13,8 +13,8 @@ namespace Inventory_server.Commands.ProductType
 {
     public class DeleteProductType : AuthorizationCommand
     {
-        private const string ProductTypeName = "ProductTypeName";
-        public override string Path => @$"/ProductType/Delete?Name=(?<{ProductTypeName}>.+)";
+        private const string ProductTypeId = "ProductTypeId";
+        public override string Path => @$"/ProductType/Delete?Id=(?<{ProductTypeId}>.+)";
         public override HttpMethod Method => HttpMethod.Delete;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
         private readonly IProductTypeProvider _companyProvider;
@@ -25,18 +25,15 @@ namespace Inventory_server.Commands.ProductType
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var productTypeName = path.Groups[ProductTypeName].Value;
-            if (productTypeName is "" or "ProductTypeName")
-                await context.WriteResponseAsync(404, "Не введенно название компании").ConfigureAwait(false);
-
-            var productType = await _companyProvider.GetOneProductTypeAsync(ProductTypeName);
+            var productTypeId = int.Parse(path.Groups[ProductTypeId].Value);
+			var productType = await _companyProvider.GetOneProductTypeAsync(productTypeId);
             if (productType is null)
             {
-                await context.WriteResponseAsync(404, $"Компании \"{ProductTypeName}\" не существует в базе данных").ConfigureAwait(false);
+                await context.WriteResponseAsync(404, $"Компании \"{ProductTypeId}\" не существует в базе данных").ConfigureAwait(false);
                 return;
             }
 
-            await _companyProvider.DeleteProductTypeAsync(productType).ConfigureAwait(false);
+            await _companyProvider.DeleteProductTypeAsync(productType.Id).ConfigureAwait(false);
             await context.WriteResponseAsync(201, null).ConfigureAwait(false);
         }
     }
