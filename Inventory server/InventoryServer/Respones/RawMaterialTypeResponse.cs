@@ -1,9 +1,8 @@
-﻿
-namespace InventoryServer.Respones
+﻿namespace InventoryServer.Respones
 {
-    public class RawMaterialTypeResponse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+	public class RawMaterialTypeResponse
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+	}
 }

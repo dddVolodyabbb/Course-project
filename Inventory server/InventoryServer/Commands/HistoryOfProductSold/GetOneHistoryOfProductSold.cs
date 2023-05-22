@@ -13,10 +13,8 @@ namespace InventoryServer.Commands.HistoryOfProductSold
     public class GetOneHistoryOfProductSold : AuthorizationCommand
     {
         private const string HistoryOfProductSoldId = "HistoryOfProductSoldId";
-
-        public override string Path => @$"/HistoryOfProductSold/GetOne?Id=(?<{HistoryOfProductSoldId}>.+)";
-
-        public override HttpMethod Method => HttpMethod.Get;
+		public override string Path => @$"/HistoryOfProductSold/GetOne?Id=(?<{HistoryOfProductSoldId}>.+)";
+		public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
         private readonly IHistoryOfProductSoldProvider _historyOfProductSoldProvider;
 
@@ -37,7 +35,7 @@ namespace InventoryServer.Commands.HistoryOfProductSold
                 return;
             }
 
-            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
         }
     }
 }

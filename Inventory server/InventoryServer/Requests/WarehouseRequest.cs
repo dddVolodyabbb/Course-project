@@ -1,8 +1,7 @@
-﻿
-namespace InventoryServer.Requests
+﻿namespace InventoryServer.Requests
 {
-    public class WarehouseRequest
-    {
-        public string Name { get; set; }
-    }
+	public class WarehouseRequest
+	{
+		public string Name { get; set; }
+	}
 }

@@ -13,10 +13,8 @@ namespace InventoryServer.Commands.PercentageOfRawMaterial
     public class GetOnePercentageOfRawMaterial : AuthorizationCommand
     {
         private const string PercentageOfRawMaterialId = "PercentageOfRawMaterialId";
-
-        public override string Path => @$"/PercentageOfRawMaterial/GetOne?Id=(?<{PercentageOfRawMaterialId}>.+)";
-
-        public override HttpMethod Method => HttpMethod.Get;
+		public override string Path => @$"/PercentageOfRawMaterial/GetOne?Id=(?<{PercentageOfRawMaterialId}>.+)";
+		public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
         private readonly IPercentageOfRawMaterialProvider _percentageOfRawMaterialProvider;
 
@@ -37,7 +35,7 @@ namespace InventoryServer.Commands.PercentageOfRawMaterial
                 return;
             }
 
-            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
         }
     }
 }

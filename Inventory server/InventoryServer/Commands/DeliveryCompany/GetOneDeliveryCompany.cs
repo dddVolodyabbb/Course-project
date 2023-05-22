@@ -28,6 +28,6 @@ public class GetOneDeliveryCompany : AuthorizationCommand
 	{
 		var deliveryCompanyId = int.Parse(path.Groups[DeliveryCompanyId].Value);
 		var response = await _companyProvider.GetOneDeliveryCompanyAsync(deliveryCompanyId);
-		await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+		await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
 	}
 }

@@ -1,8 +1,7 @@
-﻿
-namespace InventoryServer.Requests
+﻿namespace InventoryServer.Requests
 {
-    public class RawMaterialTypeRequest
-    {
-        public string Name { get; set; }
-    }
+	public class RawMaterialTypeRequest
+	{
+		public string Name { get; set; }
+	}
 }

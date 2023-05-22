@@ -1,9 +1,8 @@
-﻿
-namespace InventoryServer.Respones
+﻿namespace InventoryServer.Respones
 {
-    public class DeliveryCompanyResponse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+	public class DeliveryCompanyResponse
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+	}
 }

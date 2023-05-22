@@ -28,7 +28,7 @@ namespace InventoryServer.Commands.ProductType
 		{
 			var productTypeId = int.Parse(path.Groups[ProductTypeId].Value);
 			var response = await _productTypeProvider.GetOneProductTypeAsync(productTypeId);
-			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
 		}
 	}
 }

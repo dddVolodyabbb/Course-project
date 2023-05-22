@@ -28,7 +28,7 @@ namespace InventoryServer.Commands.RawMaterialProducer
 		{
 			var rawMaterialProducerId = int.Parse(path.Groups[RawMaterialProducerId].Value);
 			var response = await _rawMaterialProducerProvider.GetOneRawMaterialProducerAsync(rawMaterialProducerId);
-			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
 		}
 	}
 }

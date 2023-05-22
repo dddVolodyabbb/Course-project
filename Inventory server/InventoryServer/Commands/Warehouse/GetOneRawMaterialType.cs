@@ -28,7 +28,7 @@ namespace InventoryServer.Commands.Warehouse
 		{
 			var warehouseId = int.Parse(path.Groups[WarehouseId].Value);
 			var response = await _warehouseProvider.GetOneWarehouseAsync(warehouseId);
-			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
 		}
 	}
 }

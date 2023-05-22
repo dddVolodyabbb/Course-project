@@ -35,7 +35,7 @@ namespace InventoryServer.Commands.HistoryDefectiveProduct
                 return;
             }
 
-            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+            await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response.ToResponse())).ConfigureAwait(false);
         }
     }
 }
