@@ -75,11 +75,11 @@
     <Compile Include="Commands\HistoryDefectiveProduct\GetAllHistoryDefectiveProduct.cs" />
     <Compile Include="Commands\HistoryDefectiveProduct\GetOneHistoryDefectiveProduct.cs" />
     <Compile Include="Commands\HistoryDefectiveProduct\UpdateHistoryDefectiveProduct.cs" />
-    <Compile Include="Commands\HistoryDefectiveRavMaterial\CreateHistoryDefectiveProduct.cs" />
-    <Compile Include="Commands\HistoryDefectiveRavMaterial\DeleteHistoryDefectiveProduct.cs" />
-    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetAllHistoryDefectiveProduct.cs" />
-    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetOneHistoryDefectiveProduct.cs" />
-    <Compile Include="Commands\HistoryDefectiveRavMaterial\UpdateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\CreateHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\DeleteHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetAllHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetOneHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\UpdateHistoryDefectiveRavMaterial.cs" />
     <Compile Include="Commands\HistoryOfProductSold\CreateHistoryOfProductSold.cs" />
     <Compile Include="Commands\HistoryOfProductSold\DeleteHistoryOfProductSold.cs" />
     <Compile Include="Commands\HistoryOfProductSold\GetAllHistoryOfProductSold.cs" />
