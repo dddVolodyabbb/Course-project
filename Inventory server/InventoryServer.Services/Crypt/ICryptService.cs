@@ -1,9 +1,7 @@
-﻿
-
-namespace InventoryServer.Services.Crypt
+﻿namespace InventoryServer.Services.Crypt
 {
-    public interface ICryptService
-    {
-        public string ComputeHash(string text);
-    }
+	public interface ICryptService
+	{
+		public string ComputeHash(string text);
+	}
 }

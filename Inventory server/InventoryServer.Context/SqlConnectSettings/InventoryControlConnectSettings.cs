@@ -1,23 +1,21 @@
-﻿
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
-namespace InventoryServer.Context.SqlConnectSettings
+namespace InventoryServer.Context.SqlConnectSettings;
+
+public class InventoryControlConnectSettings
 {
-    public class InventoryControlConnectSettings
-    {
-        public static string SqlConnectionIntegratedSecurity
-        {
-            get
-            {
-                var sb = new SqlConnectionStringBuilder
-                {
-                    DataSource = "DESKTOP-01LDJSC\\SQLEXPRESS",
-                    IntegratedSecurity = true,
-                    InitialCatalog = "InventoryControl"
-                };
+	public static string SqlConnectionIntegratedSecurity
+	{
+		get
+		{
+			var sb = new SqlConnectionStringBuilder
+			{
+				DataSource = "DESKTOP-01LDJSC\\SQLEXPRESS",
+				IntegratedSecurity = true,
+				InitialCatalog = "InventoryControl"
+			};
 
-                return sb.ConnectionString;
-            }
-        }
-    }
+			return sb.ConnectionString;
+		}
+	}
 }

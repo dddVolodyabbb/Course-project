@@ -14,11 +14,11 @@ namespace InventoryServer.Context.Providers.HistoryOfProductSolids
             return await dbContextInventoryControl.HistoryOfProductsSolids.ToListAsync().ConfigureAwait(false);
         }
 
-        public async Task<HistoryOfProductSold> GetOneHistoryOfProductSoldAsync(int HistoryOfProductSoldName)
+        public async Task<HistoryOfProductSold> GetOneHistoryOfProductSoldAsync(int historyOfProductSoldName)
         {
             using var dbContextInventoryControl = new ContextInventoryControl();
             return await dbContextInventoryControl.HistoryOfProductsSolids
-                .FirstAsync(d => d.Id == HistoryOfProductSoldName)
+                .FirstAsync(d => d.Id == historyOfProductSoldName)
                 .ConfigureAwait(false);
         }
 

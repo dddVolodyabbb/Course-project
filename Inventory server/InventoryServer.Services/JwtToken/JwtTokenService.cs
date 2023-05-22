@@ -11,11 +11,9 @@ namespace InventoryServer.Services.JwtToken
     public class JwtTokenService : IJwtTokenService
     {
         private const string BearerPrefix = "Bearer ";
-
-        private const string IdClaimKey = "Id";
+		private const string IdClaimKey = "Id";
         private const string UserRoleClaimKey = "UserRole";
-
-        private readonly string _issuer;
+		private readonly string _issuer;
         private readonly SecurityKey _securityKey;
         private readonly SigningCredentials _signingCredentials;
 
@@ -62,7 +60,7 @@ namespace InventoryServer.Services.JwtToken
                 var userRoleString = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == UserRoleClaimKey)?.Value;
 
                 var result = Enum.TryParse<UserRole>(userRoleString, out var userRole)
-                    ? userRole
+					? userRole
                     : throw new InvalidOperationException("Cannot parse user role");
 
                 return new CheckTokenResult { UserId = userId, UserRole = result };
