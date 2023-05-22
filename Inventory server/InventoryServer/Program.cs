@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Inventory_server;
+using InventoryServer;
 
 namespace InventoryServer
 {

@@ -17,7 +17,8 @@ namespace InventoryServer.Commands.DeliveryCompany
 		public override HttpMethod Method => HttpMethod.Post;
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 		private readonly IDeliveryCompanyProvider _deliveryCompany;
-		public CreateDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider deliveryCompany) : base(jwtTokenService)
+		public CreateDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider deliveryCompany) :
+			base(jwtTokenService)
 		{
 			_deliveryCompany = deliveryCompany;
 		}

@@ -2,14 +2,13 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryDefectiveProducts;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryDefectiveProduct
+namespace InventoryServer.Commands.HistoryDefectiveProduct
 {
     public class GetOneHistoryDefectiveProduct : AuthorizationCommand
     {
@@ -17,19 +16,18 @@ namespace Inventory_server.Commands.HistoryDefectiveProduct
         public override string Path => @$"/HistoryDefectiveProduct/GetOne?Id=(?<{HistoryDefectiveProductId}>.+)";
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
-        private readonly IHistoryDefectiveProductProvider _companyProvider;
+        private readonly IHistoryDefectiveProductProvider _historyDefectiveProductProvider;
 
-        public GetOneHistoryDefectiveProduct(IJwtTokenService jwtTokenService,
-            IHistoryDefectiveProductProvider companyProvider) :
+        public GetOneHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider historyDefectiveProductProvider) :
             base(jwtTokenService)
         {
-            _companyProvider = companyProvider;
+            _historyDefectiveProductProvider = historyDefectiveProductProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
             var id = int.Parse(path.Groups[HistoryDefectiveProductId].Value);
-            var response = await _companyProvider.GetOneHistoryDefectiveProductAsync(id);
+            var response = await _historyDefectiveProductProvider.GetOneHistoryDefectiveProductAsync(id);
             if (response is null)
             {
                 await context.WriteResponseAsync(404, $"Записи под id: \"{id}\" не существует в базе данных")

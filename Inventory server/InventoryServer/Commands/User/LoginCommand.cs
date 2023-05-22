@@ -5,19 +5,17 @@ using System.Net.Http;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers;
 using InventoryServer.Extensions;
 using InventoryServer.Requests;
 
-namespace Inventory_server.Commands.User
+namespace InventoryServer.Commands.User
 {
     public class LoginCommand : ICommand
     {
         public string Path => @"/Login";
         public HttpMethod Method => HttpMethod.Post;
-
-        private readonly ICryptService _cryptService;
+		private readonly ICryptService _cryptService;
         private readonly IUserProvider _usersProvider;
         private readonly IJwtTokenService _jwtTokenService;
 

@@ -13,17 +13,16 @@ namespace InventoryServer.Commands.Warehouse;
 
 public class CreateWarehouse : AuthorizationCommand
 {
-    private readonly IWarehouseProvider _companyProvider;
+	public override string Path => @"/Warehouse/Create";
+	public override HttpMethod Method => HttpMethod.Post;
+	public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
+    private readonly IWarehouseProvider _warehouseProvider;
 
-    public CreateWarehouse(IJwtTokenService jwtTokenService, IWarehouseProvider companyProvider) : 
+    public CreateWarehouse(IJwtTokenService jwtTokenService, IWarehouseProvider warehouseProvider) :
         base(jwtTokenService)
     {
-        _companyProvider = companyProvider;
+        _warehouseProvider = warehouseProvider;
     }
-
-    public override string Path => @"/Warehouse/Create";
-    public override HttpMethod Method => HttpMethod.Post;
-    public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 
     protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
     {
@@ -35,7 +34,7 @@ public class CreateWarehouse : AuthorizationCommand
         }
 
         var warehouse = warehouseRequest.ToEntity();
-        await _companyProvider.CreateWarehouseAsync(warehouse).ConfigureAwait(false);
+        await _warehouseProvider.CreateWarehouseAsync(warehouse).ConfigureAwait(false);
         await context.WriteResponseAsync(201).ConfigureAwait(false);
     }
 }

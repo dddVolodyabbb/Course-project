@@ -16,12 +16,12 @@ namespace InventoryServer.Commands.HistoryDefectiveRavMaterial
         public override string Path => @"/HistoryDefectiveRavMaterial/Create";
         public override HttpMethod Method => HttpMethod.Post;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-        private readonly IHistoryDefectiveRavMaterialProvider _companyProvider;
+        private readonly IHistoryDefectiveRavMaterialProvider _historyDefectiveRavMaterialProvider;
 
-        public CreateHistoryDefectiveRavMaterial(IJwtTokenService jwtTokenService,
-            IHistoryDefectiveRavMaterialProvider companyProvider) : base(jwtTokenService)
+        public CreateHistoryDefectiveRavMaterial(IJwtTokenService jwtTokenService, IHistoryDefectiveRavMaterialProvider historyDefectiveRavMaterialProvider) :
+			base(jwtTokenService)
         {
-            _companyProvider = companyProvider;
+            _historyDefectiveRavMaterialProvider = historyDefectiveRavMaterialProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
@@ -35,7 +35,7 @@ namespace InventoryServer.Commands.HistoryDefectiveRavMaterial
             }
 
             var historyDefectiveRavMaterial = await historyDefectiveRavMaterialRequest.ToEntity().ConfigureAwait(false);
-            await _companyProvider.CreateHistoryDefectiveRavMaterialAsync(historyDefectiveRavMaterial)
+            await _historyDefectiveRavMaterialProvider.CreateHistoryDefectiveRavMaterialAsync(historyDefectiveRavMaterial)
                 .ConfigureAwait(false);
             await context.WriteResponseAsync(201, null).ConfigureAwait(false);
         }

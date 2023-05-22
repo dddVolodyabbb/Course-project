@@ -17,7 +17,7 @@ namespace InventoryServer.Context.Contexts
         public DbSet<PercentageOfRawMaterial> PercentOfRawMaterials { get; set; }
         public DbSet<ProductInOnePackage> ProductInOnePackages { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
-        public DbSet<RawMaterialInOnePackage> RawMaterials { get; set; }
+        public DbSet<RawMaterialInOnePackage> RawMaterialInOnePackages { get; set; }
         public DbSet<RawMaterialProducer> RawMaterialsProducers { get; set; }
         public DbSet<RawMaterialType> RawMaterialsTypes { get; set; }
         public DbSet<User> Users { get; set; }
@@ -39,7 +39,7 @@ namespace InventoryServer.Context.Contexts
 
             #endregion
 
-            #region HistoryOfProductSold
+            #region HistoryOfProductSolid
 
             modelBuilder.Entity<HistoryOfProductSold>()
                 .Property(a => a.DateOfManufacture)
@@ -58,7 +58,7 @@ namespace InventoryServer.Context.Contexts
 
             modelBuilder.Entity<HistoryOfProductSold>()
                 .HasRequired(de => de.ProductType)
-                .WithMany(d => d.HistoryOfProductSales)
+                .WithMany(d => d.HistoryOfProductSolids)
                 .HasForeignKey(de => de.ProductTypeId)
                 .WillCascadeOnDelete(true);
 

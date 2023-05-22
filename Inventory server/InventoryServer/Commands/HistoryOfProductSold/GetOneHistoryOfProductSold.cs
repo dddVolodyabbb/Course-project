@@ -2,14 +2,13 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryOfProductSolids;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryOfProductSold
+namespace InventoryServer.Commands.HistoryOfProductSold
 {
     public class GetOneHistoryOfProductSold : AuthorizationCommand
     {
@@ -19,18 +18,18 @@ namespace Inventory_server.Commands.HistoryOfProductSold
 
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
-        private readonly IHistoryOfProductSoldProvider _companyProvider;
+        private readonly IHistoryOfProductSoldProvider _historyOfProductSoldProvider;
 
-        public GetOneHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider companyProvider) :
+        public GetOneHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider historyOfProductSoldProvider) :
             base(jwtTokenService)
         {
-            _companyProvider = companyProvider;
+            _historyOfProductSoldProvider = historyOfProductSoldProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
             var id = int.Parse(path.Groups[HistoryOfProductSoldId].Value);
-            var response = await _companyProvider.GetOneHistoryOfProductSoldAsync(id);
+            var response = await _historyOfProductSoldProvider.GetOneHistoryOfProductSoldAsync(id);
             if (response is null)
             {
                 await context.WriteResponseAsync(404, $"Записи под id: \"{id}\" не существует в базе данных")

@@ -16,12 +16,12 @@ namespace InventoryServer.Commands.HistoryDefectiveProduct
         public override string Path => @"/HistoryDefectiveProduct/Create";
         public override HttpMethod Method => HttpMethod.Post;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-        private readonly IHistoryDefectiveProductProvider _companyProvider;
+        private readonly IHistoryDefectiveProductProvider _historyDefectiveProductProvider;
 
-        public CreateHistoryDefectiveProduct(IJwtTokenService jwtTokenService,
-            IHistoryDefectiveProductProvider companyProvider) : base(jwtTokenService)
+        public CreateHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider historyDefectiveProductProvider) :
+			base(jwtTokenService)
         {
-            _companyProvider = companyProvider;
+            _historyDefectiveProductProvider = historyDefectiveProductProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
@@ -35,7 +35,7 @@ namespace InventoryServer.Commands.HistoryDefectiveProduct
             }
 
             var historyDefectiveProduct = await historyDefectiveProductRequest.ToEntity().ConfigureAwait(false);
-            await _companyProvider.CreateHistoryDefectiveProductAsync(historyDefectiveProduct).ConfigureAwait(false);
+            await _historyDefectiveProductProvider.CreateHistoryDefectiveProductAsync(historyDefectiveProduct).ConfigureAwait(false);
             await context.WriteResponseAsync(201, null).ConfigureAwait(false);
         }
     }

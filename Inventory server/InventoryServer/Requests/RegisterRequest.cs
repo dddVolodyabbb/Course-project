@@ -1,5 +1,5 @@
 ﻿
-namespace Inventory_server.Requests
+namespace InventoryServer.Requests
 {
     public class RegisterRequest
     {

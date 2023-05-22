@@ -3,23 +3,22 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.RawMaterialType;
+namespace InventoryServer.Commands.RawMaterialType;
 
 public class GetAllRawMaterialType : AuthorizationCommand
 {
-    private readonly IRawMaterialTypeProvider _companyProvider;
+    private readonly IRawMaterialTypeProvider _rawMaterialTypeProvider;
 
-    public GetAllRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider companyProvider) : base(
-        jwtTokenService)
+    public GetAllRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider rawMaterialTypeProvider) :
+		base(jwtTokenService)
     {
-        _companyProvider = companyProvider;
+        _rawMaterialTypeProvider = rawMaterialTypeProvider;
     }
 
     public override string Path => @"/RawMaterialType/GetAll";
@@ -28,9 +27,8 @@ public class GetAllRawMaterialType : AuthorizationCommand
 
     protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
     {
-        var rawMaterialTypeCollection = await _companyProvider.GetAllRawMaterialTypeAsync();
+        var rawMaterialTypeCollection = await _rawMaterialTypeProvider.GetAllRawMaterialTypeAsync();
         var response = rawMaterialTypeCollection.Select(rawMaterialType => rawMaterialType.ToResponse());
-
-        await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
+		await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
     }
 }

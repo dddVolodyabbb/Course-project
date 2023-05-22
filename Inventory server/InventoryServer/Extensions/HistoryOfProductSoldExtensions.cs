@@ -8,17 +8,17 @@ namespace InventoryServer.Extensions
 {
 	public static class HistoryOfProductSoldExtensions
 	{
-		public static HistoryOfProductSoldResponse ToResponse(this HistoryOfProductSold historyOfProductSold)
+		public static HistoryOfProductSoldResponse ToResponse(this HistoryOfProductSold historyOfProductSolid)
 		{
 			return new HistoryOfProductSoldResponse
 			{
-				Id = historyOfProductSold.Id,
-				DateOfManufacture = historyOfProductSold.DateOfManufacture,
-				Price = historyOfProductSold.Price,
-				ProductType = historyOfProductSold.ProductType.Name,
-				SellBy = historyOfProductSold.SellBy,
-				Suitability = historyOfProductSold.Suitability,
-				Weight = historyOfProductSold.Weight
+				Id = historyOfProductSolid.Id,
+				DateOfManufacture = historyOfProductSolid.DateOfManufacture,
+				Price = historyOfProductSolid.Price,
+				ProductType = historyOfProductSolid.ProductType.Name,
+				SellBy = historyOfProductSolid.SellBy,
+				Suitability = historyOfProductSolid.Suitability,
+				Weight = historyOfProductSolid.Weight
 			};
 		}
 

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Grace.DependencyInjection;
-using Inventory_server.Commands.DeliveryCompany;
-using Inventory_server.Commands.ProductType;
-using Inventory_server.Commands.RawMaterialProducer;
-using Inventory_server.Commands.RawMaterialType;
-using Inventory_server.Commands.User;
-using Inventory_server.Commands.Warehouse;
 using InventoryServer;
 using InventoryServer.Commands;
 using InventoryServer.Commands.DeliveryCompany;
 using InventoryServer.Commands.ProductType;
 using InventoryServer.Commands.RawMaterialProducer;
 using InventoryServer.Commands.RawMaterialType;
+using InventoryServer.Commands.User;
 using InventoryServer.Commands.Warehouse;
 using InventoryServer.Context.Providers;
 using InventoryServer.Context.Providers.DeliveryCompanies;
@@ -24,7 +19,7 @@ using InventoryServer.Context.Providers.Warehouses;
 using InventoryServer.Services.Crypt;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server
+namespace InventoryServer
 {
     public class Locator : ILocatorService
     {

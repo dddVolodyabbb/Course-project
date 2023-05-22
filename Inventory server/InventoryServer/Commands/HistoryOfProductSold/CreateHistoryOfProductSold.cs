@@ -16,11 +16,12 @@ public class CreateHistoryOfProductSold : AuthorizationCommand
 	public override string Path => @"/HistoryOfProductSold/Create";
 	public override HttpMethod Method => HttpMethod.Post;
 	public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-	private readonly IHistoryOfProductSoldProvider _companyProvider;
+	private readonly IHistoryOfProductSoldProvider _historyOfProductSoldProvider;
 
-	public CreateHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider companyProvider) : base(jwtTokenService)
+	public CreateHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider historyOfProductSoldProvider) :
+		base(jwtTokenService)
 	{
-		_companyProvider = companyProvider;
+		_historyOfProductSoldProvider = historyOfProductSoldProvider;
 	}
 
 	protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
@@ -34,7 +35,7 @@ public class CreateHistoryOfProductSold : AuthorizationCommand
 		}
 
 		var historyOfProductSold = await historyOfProductSoldRequest.ToEntity().ConfigureAwait(false);
-		await _companyProvider.CreateHistoryOfProductSoldAsync(historyOfProductSold)
+		await _historyOfProductSoldProvider.CreateHistoryOfProductSoldAsync(historyOfProductSold)
 			.ConfigureAwait(false);
 		await context.WriteResponseAsync(201, null).ConfigureAwait(false);
 	}

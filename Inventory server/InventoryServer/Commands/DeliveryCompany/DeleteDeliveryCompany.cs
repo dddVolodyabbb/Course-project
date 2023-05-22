@@ -2,13 +2,12 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.DeliveryCompanies;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.DeliveryCompany
+namespace InventoryServer.Commands.DeliveryCompany
 {
 	public class DeleteDeliveryCompany : AuthorizationCommand
 	{
@@ -17,7 +16,8 @@ namespace Inventory_server.Commands.DeliveryCompany
 		public override HttpMethod Method => HttpMethod.Delete;
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 		private readonly IDeliveryCompanyProvider _companyProvider;
-		public DeleteDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider companyProvider) : base(jwtTokenService)
+		public DeleteDeliveryCompany(IJwtTokenService jwtTokenService, IDeliveryCompanyProvider companyProvider) :
+			base(jwtTokenService)
 		{
 			_companyProvider = companyProvider;
 		}

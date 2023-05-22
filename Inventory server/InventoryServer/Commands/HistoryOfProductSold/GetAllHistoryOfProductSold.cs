@@ -3,14 +3,13 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryOfProductSolids;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryOfProductSold
+namespace InventoryServer.Commands.HistoryOfProductSold
 {
 	public class GetAllHistoryOfProductSold : AuthorizationCommand
 	{
@@ -19,7 +18,8 @@ namespace Inventory_server.Commands.HistoryOfProductSold
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
 		private readonly IHistoryOfProductSoldProvider _companyProvider;
 
-		public GetAllHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider companyProvider) : base(jwtTokenService)
+		public GetAllHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider companyProvider) :
+			base(jwtTokenService)
 		{
 			_companyProvider = companyProvider;
 		}
@@ -29,7 +29,6 @@ namespace Inventory_server.Commands.HistoryOfProductSold
 			var historyOfProductSoldCollection = await _companyProvider.GetAllHistoryOfProductSoldAsync();
 			var response = historyOfProductSoldCollection
 				.Select(historyOfProductSold => historyOfProductSold.ToResponse()).ToList();
-
 			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
 		}
 	}

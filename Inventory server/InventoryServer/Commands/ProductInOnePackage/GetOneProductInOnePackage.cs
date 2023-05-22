@@ -2,37 +2,34 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
-using InventoryServer.Context.Providers.HistoryDefectiveRavMaterials;
+using InventoryServer.Context.Providers.ProductInOnePackages;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Helpers;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryDefectiveRavMaterial
+namespace InventoryServer.Commands.ProductInOnePackage
 {
-    public class GetOneHistoryDefectiveRavMaterial : AuthorizationCommand
+    public class GetOneProductInOnePackage : AuthorizationCommand
     {
-        private const string HistoryDefectiveRavMaterialId = "HistoryDefectiveRavMaterialId";
+        private const string ProductInOnePackageId = "ProductInOnePackageId";
 
-        public override string Path =>
-            @$"/HistoryDefectiveRavMaterial/GetOne?Id=(?<{HistoryDefectiveRavMaterialId}>.+)";
+        public override string Path => @$"/ProductInOnePackage/GetOne?Id=(?<{ProductInOnePackageId}>.+)";
 
         public override HttpMethod Method => HttpMethod.Get;
         public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin, UserRole.WarehouseUser };
-        private readonly IHistoryDefectiveRavMaterialProvider _companyProvider;
+        private readonly IProductInOnePackageProvider _productInOnePackageProvider;
 
-        public GetOneHistoryDefectiveRavMaterial(IJwtTokenService jwtTokenService,
-            IHistoryDefectiveRavMaterialProvider companyProvider) :
+        public GetOneProductInOnePackage(IJwtTokenService jwtTokenService, IProductInOnePackageProvider productInOnePackageProvider) :
             base(jwtTokenService)
         {
-            _companyProvider = companyProvider;
+            _productInOnePackageProvider = productInOnePackageProvider;
         }
 
         protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
         {
-            var id = int.Parse(path.Groups[HistoryDefectiveRavMaterialId].Value);
-            var response = await _companyProvider.GetOneHistoryDefectiveRavMaterialAsync(id);
+            var id = int.Parse(path.Groups[ProductInOnePackageId].Value);
+            var response = await _productInOnePackageProvider.GetOneProductInOnePackageAsync(id);
             if (response is null)
             {
                 await context.WriteResponseAsync(404, $"Записи под id: \"{id}\" не существует в базе данных")

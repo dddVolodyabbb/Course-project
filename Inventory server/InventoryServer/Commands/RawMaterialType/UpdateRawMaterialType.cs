@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
@@ -10,17 +9,17 @@ using InventoryServer.Helpers;
 using InventoryServer.Requests;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.RawMaterialType;
+namespace InventoryServer.Commands.RawMaterialType;
 
 public class UpdateRawMaterialType : AuthorizationCommand
 {
     private const string RawMaterialTypeId = "RawMaterialTypeId";
-    private readonly IRawMaterialTypeProvider _companyProvider;
+    private readonly IRawMaterialTypeProvider _rawMaterialTypeProvider;
 
-    public UpdateRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider companyProvider) : base(
-        jwtTokenService)
+    public UpdateRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider rawMaterialTypeProvider) :
+		base(jwtTokenService)
     {
-        _companyProvider = companyProvider;
+        _rawMaterialTypeProvider = rawMaterialTypeProvider;
     }
 
     public override string Path => @$"/RawMaterialType/Update?Id=(?<{RawMaterialTypeId}>.+)";
@@ -30,7 +29,7 @@ public class UpdateRawMaterialType : AuthorizationCommand
     protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
     {
         var rawMaterialTypeId = int.Parse(path.Groups[RawMaterialTypeId].Value);
-		var rawMaterialType = await _companyProvider.GetOneRawMaterialTypeAsync(rawMaterialTypeId);
+		var rawMaterialType = await _rawMaterialTypeProvider.GetOneRawMaterialTypeAsync(rawMaterialTypeId);
         if (rawMaterialType is null)
         {
             await context.WriteResponseAsync(404, $"Компании \"{rawMaterialTypeId}\" не существует в базе данных")
@@ -46,8 +45,7 @@ public class UpdateRawMaterialType : AuthorizationCommand
         }
 
         var newRawMaterialType = rawMaterialTypeRequest.ToEntity();
-
-        await _companyProvider.UpdateRawMaterialTypeAsync(rawMaterialTypeId, newRawMaterialType).ConfigureAwait(false);
+		await _rawMaterialTypeProvider.UpdateRawMaterialTypeAsync(rawMaterialTypeId, newRawMaterialType).ConfigureAwait(false);
         await context.WriteResponseAsync(201).ConfigureAwait(false);
     }
 }

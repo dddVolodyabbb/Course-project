@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryDefectiveRavMaterials;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
@@ -10,7 +9,7 @@ using InventoryServer.Helpers;
 using InventoryServer.Requests;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryDefectiveRavMaterial
+namespace InventoryServer.Commands.HistoryDefectiveRavMaterial
 {
 	public class UpdateHistoryDefectiveRavMaterial : AuthorizationCommand
 	{
@@ -18,18 +17,18 @@ namespace Inventory_server.Commands.HistoryDefectiveRavMaterial
 		public override string Path => @$"/HistoryDefectiveRavMaterial/Update?Id=(?<{HistoryDefectiveRavMaterialId}>.+)";
 		public override HttpMethod Method => HttpMethod.Put;
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-		private readonly IHistoryDefectiveRavMaterialProvider _companyProvider;
+		private readonly IHistoryDefectiveRavMaterialProvider _historyDefectiveRavMaterialProviderProvider;
 
-		public UpdateHistoryDefectiveRavMaterial(IJwtTokenService jwtTokenService, IHistoryDefectiveRavMaterialProvider companyProvider) : 
+		public UpdateHistoryDefectiveRavMaterial(IJwtTokenService jwtTokenService, IHistoryDefectiveRavMaterialProvider historyDefectiveRavMaterialProviderProvider) : 
 			base(jwtTokenService)
 		{
-			_companyProvider = companyProvider;
+			_historyDefectiveRavMaterialProviderProvider = historyDefectiveRavMaterialProviderProvider;
 		}
 
 		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
 		{
 			var historyDefectiveRavMaterialId = int.Parse(path.Groups[HistoryDefectiveRavMaterialId].Value);
-			var historyDefectiveRavMaterial = await _companyProvider.GetOneHistoryDefectiveRavMaterialAsync(historyDefectiveRavMaterialId);
+			var historyDefectiveRavMaterial = await _historyDefectiveRavMaterialProviderProvider.GetOneHistoryDefectiveRavMaterialAsync(historyDefectiveRavMaterialId);
 			if (historyDefectiveRavMaterial is null)
 			{
 				await context
@@ -47,8 +46,7 @@ namespace Inventory_server.Commands.HistoryDefectiveRavMaterial
 			}
 
 			var newHistoryDefectiveRavMaterial = historyDefectiveRavMaterialRequest.ToEntity().Result;
-
-			await _companyProvider
+			await _historyDefectiveRavMaterialProviderProvider
 				.UpdateHistoryDefectiveRavMaterialAsync(historyDefectiveRavMaterial.Id, newHistoryDefectiveRavMaterial)
 				.ConfigureAwait(false);
 			await context.WriteResponseAsync(201, null).ConfigureAwait(false);

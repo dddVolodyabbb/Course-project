@@ -2,13 +2,12 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryOfProductSolids;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryOfProductSold;
+namespace InventoryServer.Commands.HistoryOfProductSold;
 
 public class DeleteHistoryOfProductSold : AuthorizationCommand
 {
@@ -18,19 +17,19 @@ public class DeleteHistoryOfProductSold : AuthorizationCommand
 
 	public override HttpMethod Method => HttpMethod.Delete;
 	public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-	private readonly IHistoryOfProductSoldProvider _companyProvider;
+	private readonly IHistoryOfProductSoldProvider _historyOfProductSoldProvider;
 
-	public DeleteHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider companyProvider) :
+	public DeleteHistoryOfProductSold(IJwtTokenService jwtTokenService, IHistoryOfProductSoldProvider historyOfProductSoldProvider) :
 		base(jwtTokenService)
 	{
-		_companyProvider = companyProvider;
+		_historyOfProductSoldProvider = historyOfProductSoldProvider;
 	}
 
 	protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
 	{
 		var id = int.Parse(path.Groups[HistoryOfProductSoldId].Value);
 
-		var historyOfProductSold = await _companyProvider.GetOneHistoryOfProductSoldAsync(id);
+		var historyOfProductSold = await _historyOfProductSoldProvider.GetOneHistoryOfProductSoldAsync(id);
 		if (historyOfProductSold is null)
 		{
 			await context.WriteResponseAsync(404, $"Записи под id: \"{id}\" не существует в базе данных")
@@ -38,7 +37,7 @@ public class DeleteHistoryOfProductSold : AuthorizationCommand
 			return;
 		}
 
-		await _companyProvider.DeleteHistoryOfProductSoldAsync(historyOfProductSold.Id)
+		await _historyOfProductSoldProvider.DeleteHistoryOfProductSoldAsync(historyOfProductSold.Id)
 			.ConfigureAwait(false);
 		await context.WriteResponseAsync(201, null).ConfigureAwait(false);
 	}

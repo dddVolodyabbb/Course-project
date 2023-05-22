@@ -13,17 +13,16 @@ namespace InventoryServer.Commands.RawMaterialType;
 
 public class CreateRawMaterialType : AuthorizationCommand
 {
-    private readonly IRawMaterialTypeProvider _companyProvider;
+    private readonly IRawMaterialTypeProvider _rawMaterialTypeProvider;
+	public override string Path => @"/RawMaterialType/Create";
+	public override HttpMethod Method => HttpMethod.Post;
+	public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 
-    public CreateRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider companyProvider) : 
+    public CreateRawMaterialType(IJwtTokenService jwtTokenService, IRawMaterialTypeProvider rawMaterialTypeProvider) :
         base(jwtTokenService)
     {
-        _companyProvider = companyProvider;
+        _rawMaterialTypeProvider = rawMaterialTypeProvider;
     }
-
-    public override string Path => @"/RawMaterialType/Create";
-    public override HttpMethod Method => HttpMethod.Post;
-    public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
 
     protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
     {
@@ -35,7 +34,7 @@ public class CreateRawMaterialType : AuthorizationCommand
         }
 
         var rawMaterialType = rawMaterialTypeRequest.ToEntity();
-        await _companyProvider.CreateRawMaterialTypeAsync(rawMaterialType).ConfigureAwait(false);
+        await _rawMaterialTypeProvider.CreateRawMaterialTypeAsync(rawMaterialType).ConfigureAwait(false);
         await context.WriteResponseAsync(201).ConfigureAwait(false);
     }
 }

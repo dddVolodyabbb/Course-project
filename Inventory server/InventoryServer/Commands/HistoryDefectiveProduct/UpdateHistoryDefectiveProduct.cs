@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryDefectiveProducts;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
@@ -10,7 +9,7 @@ using InventoryServer.Helpers;
 using InventoryServer.Requests;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryDefectiveProduct
+namespace InventoryServer.Commands.HistoryDefectiveProduct
 {
 	public class UpdateHistoryDefectiveProduct : AuthorizationCommand
 	{
@@ -18,19 +17,19 @@ namespace Inventory_server.Commands.HistoryDefectiveProduct
 		public override string Path => @$"/HistoryDefectiveProduct/Update?Id=(?<{HistoryDefectiveProductId}>.+)";
 		public override HttpMethod Method => HttpMethod.Put;
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-		private readonly IHistoryDefectiveProductProvider _companyProvider;
+		private readonly IHistoryDefectiveProductProvider _historyDefectiveProductProvider;
 
-		public UpdateHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider companyProvider) : 
+		public UpdateHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider historyDefectiveProductProvider) :
 			base(jwtTokenService)
 		{
-			_companyProvider = companyProvider;
+			_historyDefectiveProductProvider = historyDefectiveProductProvider;
 		}
 
 		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
 		{
 			var historyDefectiveProductId = int.Parse(path.Groups[HistoryDefectiveProductId].Value);
 			var historyDefectiveProduct =
-				await _companyProvider.GetOneHistoryDefectiveProductAsync(historyDefectiveProductId);
+				await _historyDefectiveProductProvider.GetOneHistoryDefectiveProductAsync(historyDefectiveProductId);
 			if (historyDefectiveProduct is null)
 			{
 				await context
@@ -48,7 +47,7 @@ namespace Inventory_server.Commands.HistoryDefectiveProduct
 			}
 
 			var newHistoryDefectiveProduct = historyDefectiveProductRequest.ToEntity().Result;
-			await _companyProvider
+			await _historyDefectiveProductProvider
 				.UpdateHistoryDefectiveProductAsync(historyDefectiveProduct.Id, newHistoryDefectiveProduct)
 				.ConfigureAwait(false);
 			await context.WriteResponseAsync(201, null).ConfigureAwait(false);

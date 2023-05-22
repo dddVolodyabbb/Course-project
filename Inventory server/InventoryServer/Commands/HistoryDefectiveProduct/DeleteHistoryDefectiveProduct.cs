@@ -2,13 +2,12 @@
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using InventoryServer.Commands;
 using InventoryServer.Context.Providers.HistoryDefectiveProducts;
 using InventoryServer.Domain.Entities;
 using InventoryServer.Extensions;
 using InventoryServer.Services.JwtToken;
 
-namespace Inventory_server.Commands.HistoryDefectiveProduct
+namespace InventoryServer.Commands.HistoryDefectiveProduct
 {
 	public class DeleteHistoryDefectiveProduct : AuthorizationCommand
 	{
@@ -16,24 +15,24 @@ namespace Inventory_server.Commands.HistoryDefectiveProduct
 		public override string Path => @$"/HistoryDefectiveProduct/Delete?Id=(?<{HistoryDefectiveProductId}>\d+)";
 		public override HttpMethod Method => HttpMethod.Delete;
 		public override UserRole[] AllowedUserRoles => new[] { UserRole.Admin };
-		private readonly IHistoryDefectiveProductProvider _companyProvider;
-		public DeleteHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider companyProvider) : base(jwtTokenService)
+		private readonly IHistoryDefectiveProductProvider _historyDefectiveProductProvider;
+		public DeleteHistoryDefectiveProduct(IJwtTokenService jwtTokenService, IHistoryDefectiveProductProvider historyDefectiveProductProvider) :
+			base(jwtTokenService)
 		{
-			_companyProvider = companyProvider;
+			_historyDefectiveProductProvider = historyDefectiveProductProvider;
 		}
 
 		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, Match path)
 		{
 			var id = int.Parse(path.Groups[HistoryDefectiveProductId].Value);
-
-			var historyDefectiveProduct = await _companyProvider.GetOneHistoryDefectiveProductAsync(id);
+			var historyDefectiveProduct = await _historyDefectiveProductProvider.GetOneHistoryDefectiveProductAsync(id);
 			if (historyDefectiveProduct is null)
 			{
 				await context.WriteResponseAsync(404, $"Записи под id: \"{id}\" не существует в базе данных").ConfigureAwait(false);
 				return;
 			}
 
-			await _companyProvider.DeleteHistoryDefectiveProductAsync(historyDefectiveProduct.Id).ConfigureAwait(false);
+			await _historyDefectiveProductProvider.DeleteHistoryDefectiveProductAsync(historyDefectiveProduct.Id).ConfigureAwait(false);
 			await context.WriteResponseAsync(201, null).ConfigureAwait(false);
 		}
 	}
