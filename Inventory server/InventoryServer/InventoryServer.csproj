@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB92832C-5B44-4988-8B49-E3B2728A50BC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Inventory_server</RootNamespace>
+    <AssemblyName>Inventory server</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Grace, Version=7.2.1.0, Culture=neutral, PublicKeyToken=b7d24c6367970497, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grace.7.2.1\lib\net45\Grace.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AuthorizationCommand.cs" />
+    <Compile Include="Commands\DeliveryCompany\CreateDeliveryCompany.cs" />
+    <Compile Include="Commands\DeliveryCompany\DeleteDeliveryCompany.cs" />
+    <Compile Include="Commands\DeliveryCompany\GetAllDeliveryCompany.cs" />
+    <Compile Include="Commands\DeliveryCompany\GetOneDeliveryCompany.cs" />
+    <Compile Include="Commands\DeliveryCompany\UpdateDeliveryCompany.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\CreateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\DeleteHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\GetAllHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\GetOneHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveProduct\UpdateHistoryDefectiveProduct.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\CreateHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\DeleteHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetAllHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\GetOneHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryDefectiveRavMaterial\UpdateHistoryDefectiveRavMaterial.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\CreateHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\DeleteHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\GetAllHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\GetOneHistoryOfProductSold.cs" />
+    <Compile Include="Commands\HistoryOfProductSold\UpdateHistoryOfProductSold.cs" />
+    <Compile Include="Commands\PercentageOfRawMaterial\CreatePercentageOfRawMaterial.cs" />
+    <Compile Include="Commands\PercentageOfRawMaterial\DeletePercentageOfRawMaterial.cs" />
+    <Compile Include="Commands\PercentageOfRawMaterial\GetAllPercentageOfRawMaterial.cs" />
+    <Compile Include="Commands\PercentageOfRawMaterial\GetOnePercentageOfRawMaterial.cs" />
+    <Compile Include="Commands\PercentageOfRawMaterial\UpdatePercentageOfRawMaterial.cs" />
+    <Compile Include="Commands\ProductInOnePackage\CreateProductInOnePackage.cs" />
+    <Compile Include="Commands\ProductInOnePackage\DeleteProductInOnePackage.cs" />
+    <Compile Include="Commands\ProductInOnePackage\GetAllProductInOnePackage.cs" />
+    <Compile Include="Commands\ProductInOnePackage\GetOneProductInOnePackage.cs" />
+    <Compile Include="Commands\ProductInOnePackage\UpdateProductInOnePackage.cs" />
+    <Compile Include="Commands\ProductType\CreateProductType.cs" />
+    <Compile Include="Commands\ProductType\DeleteProductType.cs" />
+    <Compile Include="Commands\ProductType\GetAllProductType.cs" />
+    <Compile Include="Commands\ProductType\GetOneProductType.cs" />
+    <Compile Include="Commands\ProductType\UpdateProductType.cs" />
+    <Compile Include="Commands\RawMaterialInOnePackage\CreateRawMaterialInOnePackage.cs" />
+    <Compile Include="Commands\RawMaterialInOnePackage\DeleteRawMaterialInOnePackage.cs" />
+    <Compile Include="Commands\RawMaterialInOnePackage\GetAllRawMaterialInOnePackage.cs" />
+    <Compile Include="Commands\RawMaterialInOnePackage\GetOneRawMaterialInOnePackage.cs" />
+    <Compile Include="Commands\RawMaterialInOnePackage\UpdateRawMaterialInOnePackage.cs" />
+    <Compile Include="Commands\RawMaterialProducer\CreateRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\DeleteRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\GetAllRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\GetOneRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialProducer\UpdateRawMaterialProducer.cs" />
+    <Compile Include="Commands\RawMaterialType\CreateRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\DeleteRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\GetAllRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\GetOneRawMaterialType.cs" />
+    <Compile Include="Commands\RawMaterialType\UpdateRawMaterialType.cs" />
+    <Compile Include="Commands\User\LoginCommand.cs" />
+    <Compile Include="Commands\User\RegisterCommand.cs" />
+    <Compile Include="Commands\Warehouse\CreateWarehouse.cs" />
+    <Compile Include="Commands\Warehouse\DeleteWarehouse.cs" />
+    <Compile Include="Commands\Warehouse\GetAllRawMaterialType.cs" />
+    <Compile Include="Commands\Warehouse\GetOneRawMaterialType.cs" />
+    <Compile Include="Commands\Warehouse\UpdateRawMaterialType.cs" />
+    <Compile Include="ConfigurationTokens.cs" />
+    <Compile Include="Extensions\DeliveryCompanyExtensions.cs" />
+    <Compile Include="Extensions\HistoryDefectiveProductExtensions.cs" />
+    <Compile Include="Extensions\HistoryDefectiveRavMaterialExtensions.cs" />
+    <Compile Include="Extensions\HistoryOfProductSoldExtensions.cs" />
+    <Compile Include="Extensions\HttpListenerContextExtensions.cs" />
+    <Compile Include="Extensions\HttpListenerRequestExtensions.cs" />
+    <Compile Include="Extensions\PercentageOfRawMaterialExtensions.cs" />
+    <Compile Include="Extensions\ProductInOnePackageExtensions.cs" />
+    <Compile Include="Extensions\ProductTypeExtensions.cs" />
+    <Compile Include="Extensions\RawMaterialInOnePackageExtensions.cs" />
+    <Compile Include="Extensions\RawMaterialProducerExtensions.cs" />
+    <Compile Include="Extensions\RawMaterialTypeExtensions.cs" />
+    <Compile Include="Extensions\WarehouseExtensions.cs" />
+    <Compile Include="Helpers\JsonSerializeHelper.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="IServer.cs" />
+    <Compile Include="Locator.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\DeliveryCompanyRequest.cs" />
+    <Compile Include="Requests\HistoryDefectiveProductRequest.cs" />
+    <Compile Include="Requests\HistoryDefectiveRavMaterialRequest.cs" />
+    <Compile Include="Requests\HistoryOfProductSoldRequest.cs" />
+    <Compile Include="Requests\PercentageOfRawMaterialRequest.cs" />
+    <Compile Include="Requests\ProductInOnePackageRequest.cs" />
+    <Compile Include="Requests\ProductTypeRequest.cs" />
+    <Compile Include="Requests\RawMaterialInOnePackageRequest.cs" />
+    <Compile Include="Requests\RawMaterialProducerRequest.cs" />
+    <Compile Include="Requests\RawMaterialTypeRequest.cs" />
+    <Compile Include="Requests\LoginRequest.cs" />
+    <Compile Include="Requests\RegisterRequest.cs" />
+    <Compile Include="Requests\WarehouseRequest.cs" />
+    <Compile Include="Respones\DeliveryCompanyResponse.cs" />
+    <Compile Include="Respones\HistoryDefectiveProductResponse.cs" />
+    <Compile Include="Respones\HistoryDefectiveRavMaterialResponse.cs" />
+    <Compile Include="Respones\HistoryOfProductSoldResponse.cs" />
+    <Compile Include="Respones\PercentageOfRawMaterialResponse.cs" />
+    <Compile Include="Respones\ProductInOnePackageResponse.cs" />
+    <Compile Include="Respones\ProductTypeResponse.cs" />
+    <Compile Include="Respones\RawMaterialInOnePackageResponse.cs" />
+    <Compile Include="Respones\RawMaterialProducerResponse.cs" />
+    <Compile Include="Respones\RawMaterialTypeResponse.cs" />
+    <Compile Include="Respones\WarehouseResponse.cs" />
+    <Compile Include="Server.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\InventoryServer.Context\InventoryServer.Context.csproj">
+      <Project>{EBC65474-775F-424D-94CE-1713D59E18A8}</Project>
+      <Name>InventoryServer.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryServer.Domain\InventoryServer.Domain.csproj">
+      <Project>{65E9E1EE-B681-4D68-A20C-79620256098B}</Project>
+      <Name>InventoryServer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryServer.Services\InventoryServer.Services.csproj">
+      <Project>{E7E140CB-3623-4BB3-9DAA-689188474B32}</Project>
+      <Name>InventoryServer.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
